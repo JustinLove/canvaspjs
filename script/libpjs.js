@@ -79,16 +79,16 @@
     degrees: function(x){
       return this.push(x);
     },
-    command: function(x){
+    operator: function(x){
       this.body += x + "\n";
       return this;
     },
     color: function(s){
       var c = CGD.RGB.fromString(s);
-      return this.push(c.r).push(c.g).push(c.b).command('setrgbcolor');
+      return this.push(c.r).push(c.g).push(c.b).operator('setrgbcolor');
     },
     lineWidth: function(w){
-      return this.push(w).command('setlinewidth');
+      return this.push(w).operator('setlinewidth');
     },
     comment: function(x){
       this.body += "% " + x + "\n";
@@ -116,21 +116,21 @@
     
     //state
     save: function(){
-      objectData(this).ps.command("gsave");
+      objectData(this).ps.operator("gsave");
     },
     restore: function(){
-      objectData(this).ps.command("grestore");
+      objectData(this).ps.operator("grestore");
     },
     
     //transformations
     scale: function(x, y){
-      objectData(this).ps.push(x).push(y).command('scale');
+      objectData(this).ps.push(x).push(y).operator('scale');
     },
     rotate: function(angle){
-      objectData(this).ps.radians(angle).command('rotate');
+      objectData(this).ps.radians(angle).operator('rotate');
     },
     translate: function(x, y){
-      objectData(this).ps.push(x).push(y).command('translate');
+      objectData(this).ps.push(x).push(y).operator('translate');
     },
     setTransform: function(m11, m12, m21, m22, dx, dy){
       missing('setTransform');
@@ -185,13 +185,13 @@
     
     //path API
     beginPath: function(){
-      objectData(this).ps.command('newpath');
+      objectData(this).ps.operator('newpath');
     },
     closePath: function(){
-      objectData(this).ps.command('closepath');
+      objectData(this).ps.operator('closepath');
     },
     moveTo: function(x, y){
-      objectData(this).ps.push(x).push(y).command('moveto');
+      objectData(this).ps.push(x).push(y).operator('moveto');
     },
     lineTo: function(x, y){
       missing('lineTo');
@@ -216,16 +216,16 @@
     arc: function(x, y, radius, startAngle, endAngle, anticlockwise){
       objectData(this).ps.push(x).push(y).
         push(radius).radians(startAngle).radians(endAngle).
-        command(anticlockwise ? 'arc' : 'arcn');
+        operator(anticlockwise ? 'arc' : 'arcn');
     },
     fill: function(){
       objectData(this).ps.color(this.fillStyle).
-        command('gsave').command('fill').command('grestore');
+        operator('gsave').operator('fill').operator('grestore');
     },
     stroke: function(){
       objectData(this).ps.lineWidth(this.lineWidth).
         color(this.strokeStyle).
-        command('gsave').command('stroke').command('grestore');
+        operator('gsave').operator('stroke').operator('grestore');
     },
     clip: function(){
       missing('clip');
