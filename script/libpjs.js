@@ -5,8 +5,6 @@
   CGD.PJS = CGD.PJS || {};
   eval(CGD.JS.explode('CGD'));
   eval(CGD.JS.explode('CGD.JS'));
-  eval(CGD.JS.explode('CGD.OBJECT'));
-  eval(CGD.JS.explode('CGD.ARRAY'));
 
   function D(str) {
     DEBUG.p(str);
