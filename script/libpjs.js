@@ -96,7 +96,7 @@
     },
     text: function(width, height){
       return "%!PS-Adobe-3.0 EPSF-3.0\n" + 
-        "%%BoundingBox 0 0 " + 
+        "%%BoundingBox: 0 0 " + 
         width + " " + height + "\n" +
         this.body;
     }
