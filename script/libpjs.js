@@ -187,7 +187,7 @@
     }
   };
   
-  mixSafe(PJS.TextMetrics.prototype, {
+  mixSafe(PJS.ImageData.prototype, {
     width: 0,
     height: 0,
     data: null // CanvasPixelArray
