@@ -69,6 +69,7 @@
   
   mixSafe(PJS.Postscript.prototype, {
     body: "",
+    currentColor: 'black',
     push: function(x){
       this.body += x + " ";
       return this;
@@ -78,8 +79,13 @@
       return this;
     },
     color: function(s){
-      var c = CGD.RGB.fromString(s);
-      return this.push(c.r).push(c.g).push(c.b).command('setrgbcolor');
+      if (this.currentColor != s) {
+        this.currentColor = s;
+        var c = CGD.RGB.fromString(s);
+        return this.push(c.r).push(c.g).push(c.b).command('setrgbcolor');
+      } else {
+        return this;
+      }
     },
     comment: function(x){
       this.body += "% " + x + "\n";
