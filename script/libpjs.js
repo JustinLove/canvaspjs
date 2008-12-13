@@ -60,6 +60,10 @@
       this.body += x + "\n";
       return this;
     },
+    comment: function(x){
+      this.body += "% " + x + "\n";
+      return this;
+    },
     text: function(width, height){
       return "%!PS-Adobe-3.0 EPSF-3.0\n" + 
         "%%BoundingBox 0 0 " + 
@@ -132,8 +136,8 @@
     
     //rects
     clearRect: function(x, y, w, h){
-      missing('clearRect');
-      
+      // null-op
+      objectData(this).ps.comment('clearRect');
     },
     fillRect: function(x, y, w, h){
       missing('fillRect');
@@ -146,12 +150,10 @@
     
     //path API
     beginPath: function(){
-      missing('beginpath');
-      
+      objectData(this).ps.command('newpath');
     },
     closePath: function(){
-      missing('closepath');
-      
+      objectData(this).ps.command('closepath');
     },
     moveTo: function(x, y){
       missing('moveTo');
