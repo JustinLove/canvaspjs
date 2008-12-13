@@ -4,12 +4,14 @@
 CGD.TEST = CGD.TEST || {};
 CGD.TEST.pjs = function () {
   var t = arguments.callee;
+  CGD.PJS.hijack();
   t.target = document.getElementById('target');
   t.target.width = 100;
   t.target.height = 100;
   CGD.JS.addEvent(t.target, 'click',
     function() {CGD.browser('CGD', window).browse();});
-  t.context = new CGD.PJS.CanvasRenderingContextPostscript(t.target);
+  t.manual = new CGD.PJS.CanvasRenderingContextPostscript(t.target);
+  t.get = t.target.getContext('cgd-postscript');
   CGD.DRAW.on('target', t.draw);
   var ps = CGD.PJS.on('target', t.draw);
   document.getElementById('output').innerHTML = ps;

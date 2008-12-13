@@ -11,6 +11,25 @@
   };
   //DEBUG.addFilter('timestamp');
 
+  PJS.Canvas = {};
+  PJS.Canvas.getContext = function(kind) {
+    if (kind == "cgd-postscript") {
+      return new PJS.CanvasRenderingContextPostscript(this);
+    } else {
+      return objectData(this).oldGetContext.call(this, kind);
+    }
+  };
+
+  PJS.hijack = function() {
+    var list = document.getElementsByTagName("canvas");
+    for (var i = 0;i < list.length;i++) {
+      if (list[i].getContext != PJS.Canvas.getContext) {
+        objectData(list[i]).oldGetContext = list[i].getContext;
+        list[i].getContext = PJS.Canvas.getContext;
+      }
+    }
+  };
+
   PJS.on = function(id, f, options) {
     var canvas = document.getElementById(id);
     if (!canvas) {
