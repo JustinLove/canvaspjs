@@ -12,17 +12,23 @@ CGD.TEST.pjs = function () {
     function() {CGD.browser('CGD', window).browse();});
   t.manual = new CGD.PJS.CanvasRenderingContextPostscript(t.target);
   t.get = t.target.getContext('cgd-postscript');
-  CGD.DRAW.on('target', t.draw);
-  var ps = CGD.PJS.on('target', t.draw);
+  CGD.DRAW.on('target', t.draw, {origin: 'center'});
+  var ps = CGD.PJS.on('target', t.draw, {origin: 'center'});
   document.getElementById('output').innerHTML = ps;
 };
 
 CGD.TEST.pjs.draw = function(context) {
   context.save();
+  context.rotate(CGD.JS.RADIANS*0.125);
   context.beginPath();
-  context.arc(0.5, 0.5, 0.5, 0, CGD.JS.RADIANS, CGD.ARC.CLOCKWISE);
+  context.moveTo(0, 0);
+  context.arc(0, 0, 0.4, 0, CGD.JS.RADIANS*0.75, CGD.ARC.CLOCKWISE);
+  context.closePath();
   context.fillStyle = 'blue';
   context.fill();
+  context.lineWidth = 0.1;
+  context.strokeStyle = 'green';
+  context.stroke();
   context.restore();
 };
 
