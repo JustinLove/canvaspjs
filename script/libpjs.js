@@ -69,8 +69,6 @@
   
   mixSafe(PJS.Postscript.prototype, {
     body: "",
-    currentColor: 'black',
-    currentLineWidth: 1,
     push: function(x){
       this.body += x + " ";
       return this;
@@ -86,21 +84,11 @@
       return this;
     },
     color: function(s){
-      if (this.currentColor != s) {
-        this.currentColor = s;
-        var c = CGD.RGB.fromString(s);
-        return this.push(c.r).push(c.g).push(c.b).command('setrgbcolor');
-      } else {
-        return this;
-      }
+      var c = CGD.RGB.fromString(s);
+      return this.push(c.r).push(c.g).push(c.b).command('setrgbcolor');
     },
     lineWidth: function(w){
-      if (this.currentLineWidth != w) {
-        this.currentLineWidth = w;
-        return this.push(w).command('setlinewidth');
-      } else {
-        return this;
-      }
+      return this.push(w).command('setlinewidth');
     },
     comment: function(x){
       this.body += "% " + x + "\n";
