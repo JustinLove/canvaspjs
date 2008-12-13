@@ -225,12 +225,13 @@
         command(anticlockwise ? 'arc' : 'arcn');
     },
     fill: function(){
-      objectData(this).ps.color(this.fillStyle).command('fill');
+      objectData(this).ps.color(this.fillStyle).
+        command('gsave').command('fill').command('grestore');
     },
     stroke: function(){
       objectData(this).ps.lineWidth(this.lineWidth).
         color(this.strokeStyle).
-        command('stroke');
+        command('gsave').command('stroke').command('grestore');
     },
     clip: function(){
       missing('clip');
