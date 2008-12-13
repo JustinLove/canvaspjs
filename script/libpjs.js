@@ -43,12 +43,37 @@
   };
   var missing = PJS.missing;
   
+  PJS.Postscript = function() {
+    if (this == god || this == PJS) {
+      return new PJS.Postscript(node);
+    }
+    return this;
+  };
+  
+  mixSafe(PJS.Postscript.prototype, {
+    body: "",
+    push: function(x){
+      this.body += x + " ";
+      return this;
+    },
+    command: function(x){
+      this.body += x + "\n";
+      return this;
+    },
+    text: function(width, height){
+      return "%!PS-Adobe-3.0 EPSF-3.0\n" + 
+        "%%BoundingBox 0 0 " + 
+        width + " " + height + "\n" +
+        this.body;
+    }
+  });
+  
   PJS.CanvasRenderingContextPostscript = function(node) {
     if (this == god || this == PJS) {
       return new PJS.CanvasRenderingContextPostscript(node);
     }
     this.canvas = node;
-    objectData(this).ps = "";
+    objectData(this).ps = new PJS.Postscript();
     return this;
   };
   
@@ -57,15 +82,15 @@
     
     //state
     save: function(){
-      objectData(this).ps += "gsave\n";
+      objectData(this).ps.command("gsave");
     },
     restore: function(){
-      objectData(this).ps += "grestore\n";
+      objectData(this).ps.command("grestore");
     },
     
     //transformations
     scale: function(x, y){
-      objectData(this).ps += x + " " + y + " " + "scale\n";
+      objectData(this).ps.push(x).push(y).command('scale');
     },
     rotate: function(angle){
       missing('rotate');
@@ -212,10 +237,7 @@
     
     //PJs
     getPostscriptData: function(kind){
-      return "%!PS-Adobe-3.0 EPSF-3.0\n" + 
-        "%%BoundingBox 0 0 " + 
-        this.canvas.width + " " + this.canvas.height + "\n" +
-        objectData(this).ps;
+      return objectData(this).ps.text();
     }
   });
   
