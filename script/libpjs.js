@@ -58,6 +58,10 @@
       this.body += x + "\n";
       return this;
     },
+    color: function(s){
+      var c = CGD.RGB.fromString(s);
+      return this.push(c.r).push(c.g).push(c.b).command('setrgbcolor');
+    },
     comment: function(x){
       this.body += "% " + x + "\n";
       return this;
@@ -183,7 +187,7 @@
         command(anticlockwise ? 'arc' : 'arcn');
     },
     fill: function(){
-      objectData(this).ps.command('fill');
+      objectData(this).ps.color(this.fillStyle).command('fill');
     },
     stroke: function(){
       missing('stroke');

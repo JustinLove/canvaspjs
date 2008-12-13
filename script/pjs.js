@@ -4,6 +4,7 @@ CGD.JS.require.within('script/pjs.js', function() {
   r.under('cgd', function() {
     r('debug.js');
     r('js.js');
+    r('draw.js');
   });
 
   r('libpjs.js'); 
