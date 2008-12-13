@@ -20,7 +20,7 @@ CGD.JS = CGD.JS || {};
   //CGD.DEBUG.p(CGD.JS.expando);
   
   function objectData(o) {
-    return o['expando'] || (o['expando'] = {});
+    return o[expando] || (o[expando] = {});
   }
   publish('objectData');
 
