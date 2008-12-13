@@ -19,7 +19,7 @@ CGD.TEST.pjs = function () {
 
 CGD.TEST.pjs.draw = function(context) {
   context.save();
-  context.rotate(CGD.JS.RADIANS*0.125);
+  context.rotate(CGD.JS.RADIANS*0.06);
   context.beginPath();
   context.moveTo(0, 0);
   context.arc(0, 0, 0.4, 0, CGD.JS.RADIANS*0.75, CGD.ARC.CLOCKWISE);

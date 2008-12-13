@@ -75,6 +75,12 @@
       this.body += x + " ";
       return this;
     },
+    radians: function(x){
+      return this.push(-x * 360 / CGD.JS.RADIANS);
+    },
+    degrees: function(x){
+      return this.push(x);
+    },
     command: function(x){
       this.body += x + "\n";
       return this;
@@ -133,7 +139,7 @@
       objectData(this).ps.push(x).push(y).command('scale');
     },
     rotate: function(angle){
-      objectData(this).ps.push(angle).command('rotate');
+      objectData(this).ps.radians(angle).command('rotate');
     },
     translate: function(x, y){
       objectData(this).ps.push(x).push(y).command('translate');
@@ -221,7 +227,7 @@
     },
     arc: function(x, y, radius, startAngle, endAngle, anticlockwise){
       objectData(this).ps.push(x).push(y).
-        push(radius).push(startAngle).push(endAngle).
+        push(radius).radians(startAngle).radians(endAngle).
         command(anticlockwise ? 'arc' : 'arcn');
     },
     fill: function(){
