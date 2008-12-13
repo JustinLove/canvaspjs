@@ -70,6 +70,7 @@
   mixSafe(PJS.Postscript.prototype, {
     body: "",
     currentColor: 'black',
+    currentLineWidth: 1,
     push: function(x){
       this.body += x + " ";
       return this;
@@ -83,6 +84,14 @@
         this.currentColor = s;
         var c = CGD.RGB.fromString(s);
         return this.push(c.r).push(c.g).push(c.b).command('setrgbcolor');
+      } else {
+        return this;
+      }
+    },
+    lineWidth: function(w){
+      if (this.currentLineWidth != w) {
+        this.currentLineWidth = w;
+        return this.push(w).command('setlinewidth');
       } else {
         return this;
       }
@@ -124,11 +133,10 @@
       objectData(this).ps.push(x).push(y).command('scale');
     },
     rotate: function(angle){
-      missing('rotate');
+      objectData(this).ps.push(angle).command('rotate');
     },
     translate: function(x, y){
-      missing('translate');
-      
+      objectData(this).ps.push(x).push(y).command('translate');
     },
     setTransform: function(m11, m12, m21, m22, dx, dy){
       missing('setTransform');
@@ -154,6 +162,12 @@
       missing('createPattern');
       //CanvasPattern
     },
+    
+    //line caps/joins
+    lineWidth: 1,
+    lineCap: 'butt',
+    lineJoin: 'miter',
+    miterLimit: 10,
     
     //shadows
     shadowOffsetX: 0,
@@ -183,8 +197,7 @@
       objectData(this).ps.command('closepath');
     },
     moveTo: function(x, y){
-      missing('moveTo');
-      
+      objectData(this).ps.push(x).push(y).command('moveto');
     },
     lineTo: function(x, y){
       missing('lineTo');
@@ -215,8 +228,9 @@
       objectData(this).ps.color(this.fillStyle).command('fill');
     },
     stroke: function(){
-      missing('stroke');
-      
+      objectData(this).ps.lineWidth(this.lineWidth).
+        color(this.strokeStyle).
+        command('stroke');
     },
     clip: function(){
       missing('clip');
