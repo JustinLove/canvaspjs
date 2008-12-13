@@ -241,7 +241,7 @@
     
     //PJs
     getPostscriptData: function(kind){
-      return objectData(this).ps.text();
+      return objectData(this).ps.text(this.canvas.width, this.canvas.height);
     }
   });
   
