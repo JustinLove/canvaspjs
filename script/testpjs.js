@@ -9,14 +9,18 @@ CGD.TEST.pjs = function () {
   t.target.height = 100;
   CGD.JS.addEvent(t.target, 'click',
     function() {CGD.browser('CGD', window).browse();});
-  CGD.DRAW.on('target', function(context) {
-    context.save();
-    context.beginPath();
-    context.arc(0.5, 0.5, 0.5, 0, CGD.JS.RADIANS, CGD.ARC.CLOCKWISE);
-    context.fillStyle = 'blue';
-    context.fill();
-    context.restore();
-  });
+  t.context = new CGD.PJS.CanvasRenderingContextPostscript(t.target);
+  CGD.DRAW.on('target', t.draw);
+  CGD.DEBUG.p(CGD.PJS.on('target', t.draw));
+};
+
+CGD.TEST.pjs.draw = function(context) {
+  context.save();
+  context.beginPath();
+  context.arc(0.5, 0.5, 0.5, 0, CGD.JS.RADIANS, CGD.ARC.CLOCKWISE);
+  context.fillStyle = 'blue';
+  context.fill();
+  context.restore();
 };
 
 CGD.TEST.pjs.init = function() {

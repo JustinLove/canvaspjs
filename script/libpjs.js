@@ -12,11 +12,38 @@
     DEBUG.p(str);
   };
   //DEBUG.addFilter('timestamp');
+
+  PJS.on = function(id, f, options) {
+    var canvas = document.getElementById(id);
+    if (!canvas) {
+      return;
+    }
+    var context = new PJS.CanvasRenderingContextPostscript(canvas);
+    if (!context) {
+      return;
+    }
+
+    context.save();
+    context.scale(canvas.width, canvas.height);
+    if (!(options && 'clear' in options && !options.clear)) {
+      context.clearRect(0, 0, 1, 1);
+    }
+    if (options && 'origin' in options && options.origin == 'center') {
+      context.translate(0.5, 0.5);
+    }
+
+    f(context);
+
+    context.restore();
+    return context.getPostscriptData();
+  };
   
   PJS.CanvasRenderingContextPostscript = function(node) {
-    if (this == god) {
+    if (this == god || this == PJS) {
       return new PJS.CanvasRenderingContextPostscript(node);
     }
+    this.canvas = node;
+    return this;
   };
   
   mixSafe(PJS.CanvasRenderingContextPostscript.prototype, {
@@ -147,11 +174,16 @@
     },
     putImageData: function(imageData, dx, dy, dirtyX, dirtyY, dirtyWidth, dirtyHeight){
       
+    },
+    
+    //PJs
+    getPostscriptData: function(kind){
+      return 'showpage';
     }
   });
   
   PJS.CanvasGradient = function() {
-    if (this == god) {
+    if (this == god || this == PJS) {
       return new PJS.CanvasGradient();
     }
   };
@@ -163,7 +195,7 @@
   });
 
   PJS.CanvasPattern = function() {
-    if (this == god) {
+    if (this == god || this == PJS) {
       return new PJS.CanvasPattern();
     }
   };
@@ -172,7 +204,7 @@
   });
 
   PJS.TextMetrics = function() {
-    if (this == god) {
+    if (this == god || this == PJS) {
       return new PJS.TextMetrics();
     }
   };
@@ -182,7 +214,7 @@
   });
 
   PJS.ImageData = function() {
-    if (this == god) {
+    if (this == god || this == PJS) {
       return new PJS.ImageData();
     }
   };
@@ -194,7 +226,7 @@
   });
 
   PJS.CanvasPixelArray = function() {
-    if (this == god) {
+    if (this == god || this == PJS) {
       return new PJS.CanvasPixelArray();
     }
   };
