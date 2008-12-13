@@ -43,6 +43,7 @@
       return new PJS.CanvasRenderingContextPostscript(node);
     }
     this.canvas = node;
+    objectData(this).ps = "";
     return this;
   };
   
@@ -51,10 +52,10 @@
     
     //state
     save: function(){
-      
+      objectData(this).ps += "gsave\n";
     },
     restore: function(){
-      
+      objectData(this).ps += "grestore\n";
     },
     
     //transformations
@@ -180,7 +181,8 @@
     getPostscriptData: function(kind){
       return "%!PS-Adobe-3.0 EPSF-3.0\n" + 
         "%%BoundingBox 0 0 " + 
-        this.canvas.width + " " + this.canvas.height + "\n";
+        this.canvas.width + " " + this.canvas.height + "\n" +
+        objectData(this).ps;
     }
   });
   
