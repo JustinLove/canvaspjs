@@ -7,6 +7,8 @@ CGD.TEST.pjs = function () {
   t.target = document.getElementById('target');
   t.target.width = 100;
   t.target.height = 100;
+  CGD.JS.addEvent(t.target, 'click',
+    function() {CGD.browser('CGD', window).browse();});
   CGD.DRAW.on('target', function(context) {
     context.save();
     context.beginPath();
@@ -15,7 +17,6 @@ CGD.TEST.pjs = function () {
     context.fill();
     context.restore();
   });
-  CGD.browser('CGD', window).browse();
 };
 
 CGD.TEST.pjs.init = function() {
