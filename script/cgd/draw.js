@@ -93,6 +93,7 @@ CGD.STRING = CGD.STRING || {};
     black: '#000',
     grey: '#888',
     gray: '#888',
+    brown: '#802A2A',
     lastEntry: null
   };
   
