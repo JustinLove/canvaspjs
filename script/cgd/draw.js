@@ -39,11 +39,11 @@ CGD.DRAW.save = function(id) {
     return;
   }
   //CGD.DRAW.saveFile = CGD.DRAW.saveFile || CGD.STRING.serial("~/Desktop/screen000.png");
-  saveCanvas(canvas, CGD.DRAW.saveFile.next());
+  CGD.DRAW.saveCanvas(canvas, CGD.DRAW.saveFile.next());
 };
 
 // http://developer.mozilla.org/en/docs/Code_snippets:Canvas
-function saveCanvas(canvas, destFile) {
+CGD.DRAW.saveCanvas = function(canvas, destFile) {
   CGD.DEBUG.p([canvas, destFile]);
   // convert string filepath to an nsIFile
   netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
@@ -72,7 +72,7 @@ function saveCanvas(canvas, destFile) {
   
   // save the canvas data to the file
   persist.saveURI(source, null, null, null, null, file);
-}
+};
 
 // Right now about all we do is color interpolation and support code.
 CGD.RGB = CGD.RGB || {};
