@@ -2,6 +2,7 @@
 // http://creativecommons.org/licenses/by-sa/3.0/
 
 (function() {
+  CGD.PJS = CGD.PJS || {};
   eval(CGD.JS.explode('CGD'));
   eval(CGD.JS.explode('CGD.JS'));
   eval(CGD.JS.explode('CGD.OBJECT'));
@@ -12,13 +13,13 @@
   };
   //DEBUG.addFilter('timestamp');
   
-  CGD.CanvasRenderingContextPostscript = function(node) {
+  PJS.CanvasRenderingContextPostscript = function(node) {
     if (this == god) {
-      return new CGD.CanvasRenderingContextPostscript(node);
+      return new PJS.CanvasRenderingContextPostscript(node);
     }
   };
   
-  mixSafe(CGD.CanvasRenderingContextPostscript.prototype, {
+  mixSafe(PJS.CanvasRenderingContextPostscript.prototype, {
     canvas: null,
     
     //state
@@ -148,4 +149,64 @@
       
     }
   });
+  
+  PJS.CanvasGradient = function() {
+    if (this == god) {
+      return new PJS.CanvasGradient();
+    }
+  };
+  
+  mixSafe(PJS.CanvasGradient.prototype, {
+    addColorStep: function(offset, color){
+      
+    }
+  });
+
+  PJS.CanvasPattern = function() {
+    if (this == god) {
+      return new PJS.CanvasPattern();
+    }
+  };
+  
+  mixSafe(PJS.CanvasPattern.prototype, {
+  });
+
+  PJS.TextMetrics = function() {
+    if (this == god) {
+      return new PJS.TextMetrics();
+    }
+  };
+  
+  mixSafe(PJS.TextMetrics.prototype, {
+    width: 0.0
+  });
+
+  PJS.ImageData = function() {
+    if (this == god) {
+      return new PJS.ImageData();
+    }
+  };
+  
+  mixSafe(PJS.TextMetrics.prototype, {
+    width: 0,
+    height: 0,
+    data: null // CanvasPixelArray
+  });
+
+  PJS.CanvasPixelArray = function() {
+    if (this == god) {
+      return new PJS.CanvasPixelArray();
+    }
+  };
+  
+  mixSafe(PJS.CanvasPixelArray.prototype, {
+    length: 0,
+    XXX5: function(index){
+      //octet
+    },
+    XXX6: function(index, value){
+      
+    }
+  });
+  
 })();
