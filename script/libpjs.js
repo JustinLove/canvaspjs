@@ -180,12 +180,12 @@
       
     },
     arc: function(x, y, radius, startAngle, endAngle, anticlockwise){
-      missing('arc');
-      
+      objectData(this).ps.push(x).push(y).
+        push(radius).push(startAngle).push(endAngle).
+        command(anticlockwise ? 'arc' : 'arcn');
     },
     fill: function(){
-      missing('fill');
-      
+      objectData(this).ps.command('fill');
     },
     stroke: function(){
       missing('stroke');
