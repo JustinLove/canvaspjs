@@ -65,7 +65,7 @@
     
     //transformations
     scale: function(x, y){
-      missing('scale');
+      objectData(this).ps += x + " " + y + " " + "scale\n";
     },
     rotate: function(angle){
       missing('rotate');
