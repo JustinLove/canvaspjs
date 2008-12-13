@@ -38,6 +38,11 @@
     return context.getPostscriptData();
   };
   
+  PJS.missing = function(name) {
+    D('missing ' + name);
+  };
+  var missing = PJS.missing;
+  
   PJS.CanvasRenderingContextPostscript = function(node) {
     if (this == god || this == PJS) {
       return new PJS.CanvasRenderingContextPostscript(node);
@@ -60,15 +65,17 @@
     
     //transformations
     scale: function(x, y){
-      
+      missing('scale');
     },
     rotate: function(angle){
-      
+      missing('rotate');
     },
     translate: function(x, y){
+      missing('translate');
       
     },
     setTransform: function(m11, m12, m21, m22, dx, dy){
+      missing('setTransform');
       
     },
     
@@ -80,12 +87,15 @@
     strokeStyle: 'black',
     fillStyle: 'black',
     createLinearGradient: function(x0, y0, x1, y1){
+      missing('createLinearGradient');
       //CanvasGradient
     },
     createRadialGradient: function(x0, y0, r0, x1, y1, r1){
+      missing('createRadialGradient');
       //CanvasGradient
     },
     createPattern: function(image, repetition){
+      missing('createPattern');
       //CanvasPattern
     },
     
@@ -97,54 +107,70 @@
     
     //rects
     clearRect: function(x, y, w, h){
+      missing('clearRect');
       
     },
     fillRect: function(x, y, w, h){
+      missing('fillRect');
       
     },
     strokeRect: function(x, y, w, h){
+      missing('strokeRect');
       
     },
     
     //path API
     beginPath: function(){
+      missing('beginpath');
       
     },
     closePath: function(){
+      missing('closepath');
       
     },
     moveTo: function(x, y){
+      missing('moveTo');
       
     },
     lineTo: function(x, y){
+      missing('lineTo');
       
     },
     quadraticCurveTo: function(cpx, cpy, x, y){
+      missing('quadraticCurveTo');
       
     },
     bezierCurveTo: function(cp1x, cp1y, cp2x, cp2y, x, y){
+      missing('bezierCurveTo');
       
     },
     arcTo: function(x1, y1, x2, y2, radius){
+      missing('arcTo');
       
     },
     rect: function(x, y, w, h){
+      missing('rect');
       
     },
     arc: function(x, y, radius, startAngle, endAngle, anticlockwise){
+      missing('arc');
       
     },
     fill: function(){
+      missing('fill');
       
     },
     stroke: function(){
+      missing('stroke');
       
     },
     clip: function(){
+      missing('clip');
       
     },
     isPointInPath: function(x, y){
-      //bool
+      missing('isPointInPath');
+      return false;
     },
     
     //text
@@ -152,28 +178,35 @@
     textAlign: "start",
     textBaseline: "alphabetic",
     fillText: function(text, x, y, maxWidth){
+      missing('fillText');
       
     },
     strokeText: function(text, x, y, maxWidth){
+      missing('strokeText');
       
     },
     measureText: function(text){
-      //TextMetrics
+      missing('measureText');
+      return new PJS.TextMetrics();
     },
     
     //drawing images
     drawImage: function(image, sx, sy, sw, sh, dx, dy, dw, dh){
+      missing('drawImage');
       
     },
     
     //pixel manipulation
     createImageData: function(sw, sh){
-      //ImageData
+      missing('createImageData');
+      return new PJS.ImageData();
     },
     getImageData: function(sx, sy, sw, sh){
-      //ImageData
+      missing('getImageData');
+      return new PJS.ImageData();
     },
     putImageData: function(imageData, dx, dy, dirtyX, dirtyY, dirtyWidth, dirtyHeight){
+      missing('putImageData');
       
     },
     
@@ -194,6 +227,7 @@
   
   mixSafe(PJS.CanvasGradient.prototype, {
     addColorStep: function(offset, color){
+      missing('addColorStep');
       
     }
   });
@@ -238,9 +272,12 @@
   mixSafe(PJS.CanvasPixelArray.prototype, {
     length: 0,
     XXX5: function(index){
+      missing('XXX5');
+      return 0;
       //octet
     },
     XXX6: function(index, value){
+      missing('XXX6');
       
     }
   });
