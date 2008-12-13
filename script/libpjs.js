@@ -178,7 +178,9 @@
     
     //PJs
     getPostscriptData: function(kind){
-      return 'showpage';
+      return "%!PS-Adobe-3.0 EPSF-3.0\n" + 
+        "%%BoundingBox 0 0 " + 
+        this.canvas.width + " " + this.canvas.height + "\n";
     }
   });
   

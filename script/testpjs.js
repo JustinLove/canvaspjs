@@ -11,7 +11,10 @@ CGD.TEST.pjs = function () {
     function() {CGD.browser('CGD', window).browse();});
   t.context = new CGD.PJS.CanvasRenderingContextPostscript(t.target);
   CGD.DRAW.on('target', t.draw);
-  CGD.DEBUG.p(CGD.PJS.on('target', t.draw));
+  var ps = CGD.PJS.on('target', t.draw);
+  CGD.ARRAY.forEach(ps.split('\n'), function(l) {
+    CGD.DEBUG.p(l);
+  });
 };
 
 CGD.TEST.pjs.draw = function(context) {
