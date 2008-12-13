@@ -4,6 +4,18 @@
 CGD.TEST = CGD.TEST || {};
 CGD.TEST.pjs = function () {
   var t = arguments.callee;
+  t.target = document.getElementById('target');
+  t.target.width = 100;
+  t.target.height = 100;
+  CGD.DRAW.on('target', function(context) {
+    context.save();
+    context.beginPath();
+    context.arc(0.5, 0.5, 0.5, 0, CGD.JS.RADIANS, CGD.ARC.CLOCKWISE);
+    context.fillStyle = 'blue';
+    context.fill();
+    context.restore();
+  });
+  CGD.browser('CGD', window).browse();
 };
 
 CGD.TEST.pjs.init = function() {
