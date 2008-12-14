@@ -47,6 +47,6 @@ CGD.TEST.pjs.draw = function(context) {
 CGD.TEST.pjs.init = function() {
   CGD.DEBUG.onload();
   CGD.DEBUG.on();
-  CGD.DEBUG.p('test');
+//  CGD.DEBUG.p('test');
   CGD.TEST.pjs();
 };
