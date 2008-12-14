@@ -343,7 +343,7 @@
         try {
           data = context.getImageData(sx, sy, sw, sh).data;
         } catch (e) {
-          netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+          netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");
           data = context.getImageData(sx, sy, sw, sh).data;
         }
       } catch (e) {
