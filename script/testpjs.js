@@ -29,6 +29,8 @@ CGD.TEST.pjs.draw = function(context) {
   context.lineWidth = 0.1;
   context.strokeStyle = 'green';
   context.stroke();
+  context.scale(0.2, 0.2);
+  context.drawImage(document.getElementById('tiny'), -1, -1);
   context.restore();
 };
 
