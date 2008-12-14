@@ -8,10 +8,12 @@ CGD.TEST.pjs = function () {
   t.target = document.getElementById('target');
   t.target.width = 100;
   t.target.height = 100;
-  CGD.JS.addEvent(t.target, 'click',
-    function() {CGD.browser('CGD', window).browse();});
-  t.manual = new CGD.PJS.CanvasRenderingContextPostscript(t.target);
-  t.get = t.target.getContext('cgd-postscript');
+  if (CGD.browser) {
+    CGD.JS.addEvent(t.target, 'click',
+      function() {CGD.browser('CGD', window).browse();});
+    t.manual = new CGD.PJS.CanvasRenderingContextPostscript(t.target);
+    t.get = t.target.getContext('cgd-postscript');
+  }
   CGD.DRAW.on('target', t.draw, {origin: 'center'});
   var ps = CGD.PJS.on('target', t.draw, {origin: 'center'});
   document.getElementById('output').innerHTML = ps;
