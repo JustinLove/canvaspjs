@@ -74,7 +74,7 @@
       return this;
     },
     radians: function(x){
-      return this.push(-x * 360 / CGD.JS.RADIANS);
+      return this.push(x * 360 / CGD.JS.RADIANS);
     },
     degrees: function(x){
       return this.push(x);
@@ -114,7 +114,7 @@
         Height: height,
         BitsPerComponent: 8,
         Decode: '[0 1 0 1 0 1]',
-        ImageMatrix: "[" + width + " 0 0 " + -height + " 0 " + height + "]",
+        ImageMatrix: "[" + width + " 0 0 " + height + " 0 0]",
         DataSource: "currentfile /ASCIIHexDecode filter"
       }).operator('image');
       return this.data(data);
@@ -132,9 +132,9 @@
       return new PJS.CanvasRenderingContextPostscript(node);
     }
     this.canvas = node;
-    objectData(this).ps = (new PJS.Postscript()).
-      push(0).push(node.height).operator('translate').
-      push(1).push(-1).operator('scale');
+    objectData(this).ps = (new PJS.Postscript());
+    this.translate(0, node.height);
+    this.scale(1, -1);
     return this;
   };
   
@@ -151,7 +151,9 @@
     
     //transformations
     scale: function(x, y){
-      objectData(this).ps.push(x).push(y).operator('scale');
+      if (x != 1 || y != 1) {
+        objectData(this).ps.push(x).push(y).operator('scale');
+      }
     },
     rotate: function(angle){
       objectData(this).ps.radians(angle).operator('rotate');
@@ -243,7 +245,7 @@
     arc: function(x, y, radius, startAngle, endAngle, anticlockwise){
       objectData(this).ps.push(x).push(y).
         push(radius).radians(startAngle).radians(endAngle).
-        operator(anticlockwise ? 'arc' : 'arcn');
+        operator(anticlockwise ? 'arcn' : 'arc');
     },
     fill: function(){
       objectData(this).ps.color(this.fillStyle).
@@ -286,12 +288,22 @@
         case 3:
           dx = sx;
           dy = sy;
+          dw = null;
+          dh = null;
+          sx = null;
+          sy = null;
+          sw = null;
+          sh = null;
           break;
         case 5:
           dx = sx;
           dy = sy;
           dw = sw;
           dh = sh;
+          sx = null;
+          sy = null;
+          sw = null;
+          sh = null;
           break;
         case 9:
           break;
@@ -322,13 +334,17 @@
       if (!context) {
         throw new Error("couldn't get context for source canvas");
       }
+      sx = sx || 0;
+      sy = sx || 0;
+      sw = sw || canvas.width;
+      sh = sh || canvas.height;
       var data;
       try {
         try {
-          data = context.getImageData(0, 0, canvas.width, canvas.height).data;
+          data = context.getImageData(sx, sy, sw, sh).data;
         } catch (e) {
           netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
-          data = context.getImageData(0, 0, canvas.width, canvas.height).data;
+          data = context.getImageData(sx, sy, sw, sh).data;
         }
       } catch (e) {
         throw new Error("unable to access image data: " + e);
@@ -336,9 +352,9 @@
       var string = "";
       var row = "";
       var i = 0;
-      for (var y = 0;y < canvas.height;y++) {
+      for (var y = 0;y < sw;y++) {
         row = "";
-        for (var x = 0;x < canvas.width * 4;x++) {
+        for (var x = 0;x < sh * 4;x++) {
           if (i % 4 != 3) {
             var h = data[i].toString(16);
             row += (h.length == 1 ? ('0' + h) : h);
@@ -349,8 +365,8 @@
       }
       this.save();
       this.translate(dx, dy);
-      this.scale(canvas.width, canvas.height);
-      objectData(this).ps.image(string, canvas.width, canvas.height);
+      this.scale(dw || sw, dh || sh);
+      objectData(this).ps.image(string, sw, sh);
       this.restore();
     },
     

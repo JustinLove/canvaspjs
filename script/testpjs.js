@@ -29,8 +29,16 @@ CGD.TEST.pjs.draw = function(context) {
   context.lineWidth = 0.1;
   context.strokeStyle = 'green';
   context.stroke();
-  context.scale(0.2, 0.2);
-  context.drawImage(document.getElementById('tiny'), -1, -1);
+  context.save();
+  context.translate(0, 0.2);
+  context.scale(0.5, 0.5);
+  context.drawImage(document.getElementById('tiny'), -0.5, -0.5, 1, 1);
+  context.restore();
+  context.save();
+  context.translate(0.2, -0.2);
+  context.scale(0.25, 0.25);
+  context.drawImage(document.getElementById('tiny'), 1, 1, 1, 1, -0.5, -0.5, 1, 1);
+  context.restore();
   context.restore();
 };
 
