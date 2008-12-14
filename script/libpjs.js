@@ -367,6 +367,10 @@
       if (!context) {
         throw new Error("couldn't get context for source canvas");
       }
+      if (!context['getImageData']) {
+        objectData(this).ps.comment('context.getImageData not supported');
+        return;
+      }
       sx = sx || 0;
       sy = sx || 0;
       sw = sw || canvas.width;
@@ -376,8 +380,12 @@
         try {
           data = context.getImageData(sx, sy, sw, sh).data;
         } catch (e) {
-          netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");
-          data = context.getImageData(sx, sy, sw, sh).data;
+          if (god['netscape']) {
+            netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");
+            data = context.getImageData(sx, sy, sw, sh).data;
+          } else {
+            throw e;
+          }
         }
       } catch (e) {
         throw new Error("unable to access image data: " + e);
