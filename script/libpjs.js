@@ -132,7 +132,9 @@
       return new PJS.CanvasRenderingContextPostscript(node);
     }
     this.canvas = node;
-    objectData(this).ps = new PJS.Postscript();
+    objectData(this).ps = (new PJS.Postscript()).
+      push(0).push(node.height).operator('translate').
+      push(1).push(-1).operator('scale');
     return this;
   };
   
@@ -345,7 +347,11 @@
         }
         string += row + '\n';
       }
+      this.save();
+      this.translate(dx, dy);
+      this.scale(canvas.width, canvas.height);
       objectData(this).ps.image(string, canvas.width, canvas.height);
+      this.restore();
     },
     
     //pixel manipulation
