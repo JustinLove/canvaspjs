@@ -79,6 +79,10 @@
     degrees: function(x){
       return this.push(x);
     },
+    n: function(x){
+      this.body += "\n";
+      return this;
+    },
     operator: function(x){
       this.body += x + "\n";
       return this;
@@ -97,25 +101,54 @@
     dictionary: function(dict){
       this.operator('<<');
       for (var i in dict) {
-        if (dict.hasOwnProperty(i)) {
-          this.push('/' + i).operator(dict[i]);
-        }
+        this.push('/' + i).smart(dict[i]).n();
       }
       return this.operator('>>');
+    },
+    array: function(array){
+      return this.push('[' + array.join(' ') + ']');
+    },
+    smart: function(x){
+      switch(typeof(x)) {
+        case 'number': this.push(x); break;
+        case 'string': this.push(x); break;
+        case 'object':
+          if (CGD.ARRAY.describes(x)) {
+            this.array(x);
+          } else {
+            this.dictionary(x);
+          }
+          break;
+        default: this.push(x); break;
+      }
+      return this;
     },
     data: function(data){
       return this.push(data).operator('>');
     },
     image: function(data, width, height){
       this.push('/DeviceRGB').operator('setcolorspace');
-      this.dictionary({
+      var dict = {
         ImageType: 1,
         Width: width,
         Height: height,
         BitsPerComponent: 8,
+        ImageMatrix: [width, 0, 0, height, 0, 0]
+      };
+      var dataDict = object(dict);
+      mix(dataDict, {
         Decode: '[0 1 0 1 0 1]',
-        ImageMatrix: "[" + width + " 0 0 " + height + " 0 0]",
         DataSource: "currentfile /ASCIIHexDecode filter"
+      });
+      var maskDict = object(dict);
+      maskDict.Decode = '[1 0]';
+      
+      
+      this.dictionary({
+        ImageType: 3,
+        InterleaveType: 1,
+        DataDict: dataDict,
+        MaskDict: maskDict
       }).operator('image');
       return this.data(data);
     },
@@ -352,13 +385,17 @@
       var string = "";
       var row = "";
       var i = 0;
+      function h(d) {
+        var x = d.toString(16);
+        return (x.length == 1 ? ('0' + x) : x);
+      };
       for (var y = 0;y < sw;y++) {
         row = "";
-        for (var x = 0;x < sh * 4;x++) {
-          if (i % 4 != 3) {
-            var h = data[i].toString(16);
-            row += (h.length == 1 ? ('0' + h) : h);
-          }
+        for (var x = 0;x < sh * 4;x += 4) {
+          row += h(data[i+3]);
+          row += h(data[i++]);
+          row += h(data[i++]);
+          row += h(data[i++]);
           i++;
         }
         string += row + '\n';
