@@ -94,6 +94,31 @@
       this.body += "% " + x + "\n";
       return this;
     },
+    dictionary: function(dict){
+      this.operator('<<');
+      for (var i in dict) {
+        if (dict.hasOwnProperty(i)) {
+          this.push('/' + i).operator(dict[i]);
+        }
+      }
+      return this.operator('>>');
+    },
+    data: function(data){
+      return this.push(data).operator('>');
+    },
+    image: function(data, width, height){
+      this.push('/DeviceRGB').operator('setcolorspace');
+      this.dictionary({
+        ImageType: 1,
+        Width: width,
+        Height: height,
+        BitsPerComponent: 8,
+        Decode: '[0 1 0 1 0 1]',
+        ImageMatrix: "[" + width + " 0 0 " + -height + " 0 " + height + "]",
+        DataSource: "currentfile /ASCIIHexDecode filter"
+      }).operator('image');
+      return this.data(data);
+    },
     text: function(width, height){
       return "%!PS-Adobe-3.0 EPSF-3.0\n" + 
         "%%BoundingBox: 0 0 " + 
@@ -255,8 +280,72 @@
     
     //drawing images
     drawImage: function(image, sx, sy, sw, sh, dx, dy, dw, dh){
-      missing('drawImage');
-      
+      switch (arguments.length) {
+        case 3:
+          dx = sx;
+          dy = sy;
+          break;
+        case 5:
+          dx = sx;
+          dy = sy;
+          dw = sw;
+          dh = sh;
+          break;
+        case 9:
+          break;
+        default:
+          throw new Error("invalid number of arguments to drawImage");
+      }
+      var canvas;
+      var context;
+      if (image['getContext']) {
+        canvas = image;
+      } else {
+        canvas = this.canvas.ownerDocument.createElement('canvas');
+        if (!canvas) {
+          throw new Error("couldn't create canvas to wrap image");
+        }
+        canvas.width = image.width;
+        canvas.height = image.height;
+        var context = canvas.getContext('2d');
+        if (!context) {
+          throw new Error("couldn't get context for wrapper canvas");
+        }
+        if (context.drawImage == this.drawImage) {
+          throw new Error("pjs: recrusion in drawImage");
+        }
+        context.drawImage(image, 0, 0);
+      }
+      context = canvas.getContext('2d');
+      if (!context) {
+        throw new Error("couldn't get context for source canvas");
+      }
+      var data;
+      try {
+        try {
+          data = context.getImageData(0, 0, canvas.width, canvas.height).data;
+        } catch (e) {
+          netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+          data = context.getImageData(0, 0, canvas.width, canvas.height).data;
+        }
+      } catch (e) {
+        throw new Error("unable to access image data: " + e);
+      }
+      var string = "";
+      var row = "";
+      var i = 0;
+      for (var y = 0;y < canvas.height;y++) {
+        row = "";
+        for (var x = 0;x < canvas.width * 4;x++) {
+          if (i % 4 != 3) {
+            var h = data[i].toString(16);
+            row += (h.length == 1 ? ('0' + h) : h);
+          }
+          i++;
+        }
+        string += row + '\n';
+      }
+      objectData(this).ps.image(string, canvas.width, canvas.height);
     },
     
     //pixel manipulation
