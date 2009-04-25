@@ -10,7 +10,11 @@ CGD.DRAW.on = function(id, f, options) {
   if (!canvas) {
     return;
   }
-  var context = canvas.getContext("2d");
+  try {
+    var context = canvas.getContext("2d");
+  } catch(e) {
+    throw new CGD.JS.UnsupportedFeature("Canvas: " + e.toString());
+  }
   if (!context) {
     return;
   }
@@ -27,6 +31,15 @@ CGD.DRAW.on = function(id, f, options) {
   f(context);
 
   context.restore();
+};
+
+CGD.DRAW.image = function(context, image, x, y, w, h) {
+  var od = CGD.JS.objectData(image);
+  // fix for a Dashboard bug.
+  if (!('imageOffset' in od)) {
+    od.imageOffset = (window.widget && image.src.substr(-3, 3) == 'pdf') ? 1 : 0;
+  }
+  context.drawImage(image, x, y + h*od.imageOffset, w, h);
 };
 
 CGD.DRAW.save = function(id) {
@@ -80,22 +93,61 @@ CGD.RGB = CGD.RGB || {};
 CGD.STRING = CGD.STRING || {};
 (function() {
   // color names are convient, but now we have to deal with them.
-  CGD.RGB.STRINGS = {
-    red: '#F00',
-    green: '#080', // and they are sometimes surprising.
-    blue: '#00F',
+  C = CGD.RGB.STRINGS = {
+    // W3C
+    aqua: '#00FFFF',
+    black: '#000000',
+    blue: '#0000FF',
+    fuchia: '#FF00FF',
+    gray: '#808080',
+    green: '#008000', // and they are sometimes surprising.
+    lime: '#00FF00',
+    maroon: '#800000',
+    navy: '#000080',
+    olive: '#808000',
+    purple: '#800080',
+    red: '#FF0000',
+    silver: '#CCCCCC',
+    teal: '#008080',
+    white: '#FFFFFF',
+    yellow: '#FFFF00',
+    
+    // misc
     orange: '#FFA500',
-    yellow: '#FF0',
-    purple: '#808',
     pink: '#FFC0CB',
-    cyan: '#0FF',
-    white: '#FFF',
-    black: '#000',
-    grey: '#888',
-    gray: '#888',
+    grey: '#808080',
     brown: '#802A2A',
+    turquoise: '#40E0D0',
+    lightgreen: stringFromRgb({r: 51/256, g: 204/256, b: 102/256}),
+    wine: '#000040',
     lastEntry: null
   };
+  var blend = blendStringColors;
+  function dark(c) {
+    return blend(c, C.black, 0.4);
+  }
+  CGD.RGB.dark = dark;
+  function light(c) {
+    return blend(c, C.white, 0.8);
+  }
+  CGD.RGB.light = light;
+  function mixture(a, b) {
+    return C[a + '_' + b] = blend(C[a], C[b], 0.5);
+  }
+  C.brightgreen = C.lime;
+  C.cyan = C.aqua;
+  C.magenta = C.violet = C.fuchia;
+  C.indigo = dark('blue');
+  C.orange = blend(C.red, C.yellow, 0.5);
+  mixture('red', 'violet');
+  mixture('indigo', 'violet');
+  mixture('yellow', 'orange');
+  mixture('blue', 'green');
+  mixture('red', 'orange');
+  C.ultraviolet = light('blue');
+  mixture('blue', 'indigo');
+  mixture('blue', 'violet');
+  mixture('red', 'wine');
   
   function rgbFromHex6(s) {
     function c(s, pos) {
@@ -134,6 +186,11 @@ CGD.STRING = CGD.STRING || {};
     return '#' + c(rgb.r) + c(rgb.g) + c(rgb.b);
   }
   CGD.STRING.fromRgb = stringFromRgb;
+  
+  function canonical(s) {
+    return stringFromRgb(rgbFromString(s));
+  }
+  CGD.RGB.canonical = canonical;
 
   function interpolate(a, b, by) {
     return a + (b-a)*by;

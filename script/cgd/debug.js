@@ -59,7 +59,7 @@ CGD.DEBUG.BACKEND.div_factory = function(id) {
       var div = debugDiv();
       div.appendChild(document.createTextNode(str));
       div.appendChild(document.createElement("br"));
-      div.scrollTop = debugDiv.scrollHeight;
+      div.scrollTop = div.scrollHeight;
     },
     disable: function() {
       setDiv('none');
