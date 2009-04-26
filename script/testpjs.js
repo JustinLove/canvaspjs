@@ -25,9 +25,32 @@ CGD.TEST.pjs = function () {
   //CGD.FILE.saveString(ps, "~/Desktop/pjs.eps");
 };
 
+CGD.TEST.pjs.runCases = function() {
+  var t = CGD.TEST.pjs;
+  t.target = document.getElementById('target');
+  t.target.width = 100;
+  t.target.height = 100;
+  if (CGD.browser) {
+    CGD.JS.addEvent(t.target, 'click',
+      function() {CGD.browser('CGD', window).browse();});
+    t.manual = new CGD.PJS.CanvasRenderingContextPostscript(t.target);
+  }
+  var path = "~/files/programming/javascript/pjs/testcases/";
+  CGD.DEBUG.p(t.cases);
+  CGD.OBJECT.forEach(t.cases, function(f, name) {
+    CGD.DEBUG.p([name, f]);
+    CGD.DRAW.on('target', f, {origin: 'center'});
+    CGD.DRAW.saveFile = path + name + 'png.png';
+    CGD.DRAW.save('target');
+    var ps = CGD.PJS.on('target', f, {origin: 'center'});
+    CGD.FILE.saveString(ps, path + name + 'eps.eps');
+  });
+};
+
 CGD.TEST.pjs.init = function() {
   CGD.DEBUG.onload();
   CGD.DEBUG.on();
 //  CGD.DEBUG.p('test');
-  CGD.TEST.pjs();
+  //CGD.TEST.pjs();
+  CGD.TEST.pjs.runCases();
 };
