@@ -52,8 +52,12 @@ CGD.DRAW.save = function(id) {
     return;
   }
   //CGD.DRAW.saveFile = CGD.DRAW.saveFile || CGD.STRING.serial("~/Desktop/screen000.png");
+  var name = CGD.DRAW.saveFile;
+  if (typeof(name) != 'string') {
+    name = name.next();
+  }
   netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");
-  CGD.FILE.saveDataURL(canvas.toDataURL("image/png", ""), CGD.DRAW.saveFile.next());
+  CGD.FILE.saveDataURL(canvas.toDataURL("image/png", ""), name);
 };
 
 // Right now about all we do is color interpolation and support code.

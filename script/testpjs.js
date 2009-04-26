@@ -16,10 +16,11 @@ CGD.TEST.pjs = function () {
   }
   CGD.DRAW.on('target', t.draw, {origin: 'center'});
   //CGD.DRAW.saveFile = CGD.DRAW.saveFile || CGD.STRING.serial("~/Desktop/screen000.png");
-  //CGD.DRAW.save('target');
+  //CGD.DRAW.saveFile = "~/Desktop/pjs.png";
+  CGD.DRAW.save('target');
   var ps = CGD.PJS.on('target', t.draw, {origin: 'center'});
   document.getElementById('output').innerHTML = ps;
-  CGD.FILE.saveString(ps, "~/Desktop/pjs.eps");
+  //CGD.FILE.saveString(ps, "~/Desktop/pjs.eps");
 };
 
 CGD.TEST.pjs.draw = function(context) {
