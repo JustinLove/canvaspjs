@@ -15,6 +15,8 @@ CGD.TEST.pjs = function () {
     t.get = t.target.getContext('cgd-postscript');
   }
   CGD.DRAW.on('target', t.draw, {origin: 'center'});
+  //CGD.DRAW.saveFile = CGD.DRAW.saveFile || CGD.STRING.serial("~/Desktop/screen000.png");
+  //CGD.DRAW.save('target');
   var ps = CGD.PJS.on('target', t.draw, {origin: 'center'});
   document.getElementById('output').innerHTML = ps;
 };
