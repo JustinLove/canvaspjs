@@ -2,6 +2,7 @@
 // http://creativecommons.org/licenses/by-sa/3.0/
 
 CGD.JS.require('script/testcases.js');
+//CGD.JS.require('script/cgd/html.js');
 
 CGD.TEST = CGD.TEST || {};
 CGD.TEST.pjs = function () {
@@ -25,6 +26,7 @@ CGD.TEST.pjs = function () {
   //CGD.FILE.saveString(ps, "~/Desktop/pjs.eps");
 };
 
+CGD.TEST.pjs.path = "~/files/programming/javascript/pjs/testcases/";
 CGD.TEST.pjs.runCases = function() {
   var t = CGD.TEST.pjs;
   t.target = document.getElementById('target');
@@ -35,16 +37,31 @@ CGD.TEST.pjs.runCases = function() {
       function() {CGD.browser('CGD', window).browse();});
     t.manual = new CGD.PJS.CanvasRenderingContextPostscript(t.target);
   }
-  var path = "~/files/programming/javascript/pjs/testcases/";
-  CGD.DEBUG.p(t.cases);
   CGD.OBJECT.forEach(t.cases, function(f, name) {
-    CGD.DEBUG.p([name, f]);
     CGD.DRAW.on('target', f, {origin: 'center'});
-    CGD.DRAW.saveFile = path + name + 'png.png';
+    CGD.DRAW.saveFile = t.path + name + 'png.png';
     CGD.DRAW.save('target');
     var ps = CGD.PJS.on('target', f, {origin: 'center'});
-    CGD.FILE.saveString(ps, path + name + 'eps.eps');
+    CGD.FILE.saveString(ps, t.path + name + 'eps.eps');
   });
+};
+
+CGD.TEST.pjs.showCases = function() {
+  var path = "testcases/";
+  var t = CGD.TEST.pjs;
+  var h = {div: {p: []}};
+  var x = h.div.p;
+  CGD.OBJECT.forEach(t.cases, function(f, name) {
+    CGD.DEBUG.p(name);
+    x.push({
+      'img.eps': {_src: path + name + 'eps.png'},
+      'img.png': {_src: path + name + 'png.png'}
+    });
+  });
+  CGD.DEBUG.dump(h);
+  CGD.DEBUG.dump(x);
+  var html = CGD.HTML.from(h);
+  document.getElementById('tests').innerHTML = html;
 };
 
 CGD.TEST.pjs.init = function() {
@@ -52,5 +69,6 @@ CGD.TEST.pjs.init = function() {
   CGD.DEBUG.on();
 //  CGD.DEBUG.p('test');
   //CGD.TEST.pjs();
-  CGD.TEST.pjs.runCases();
+  //CGD.TEST.pjs.runCases();
+  CGD.TEST.pjs.showCases();
 };
