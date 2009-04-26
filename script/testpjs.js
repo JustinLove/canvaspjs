@@ -19,6 +19,7 @@ CGD.TEST.pjs = function () {
   //CGD.DRAW.save('target');
   var ps = CGD.PJS.on('target', t.draw, {origin: 'center'});
   document.getElementById('output').innerHTML = ps;
+  CGD.FILE.saveString(ps, "~/Desktop/pjs.eps");
 };
 
 CGD.TEST.pjs.draw = function(context) {
