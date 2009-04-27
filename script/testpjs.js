@@ -52,14 +52,11 @@ CGD.TEST.pjs.showCases = function() {
   var h = {div: {p: []}};
   var x = h.div.p;
   CGD.OBJECT.forEach(t.cases, function(f, name) {
-    CGD.DEBUG.p(name);
     x.push({
       'img.eps': {_src: path + name + 'eps.png'},
       'img.png': {_src: path + name + 'png.png'}
     });
   });
-  CGD.DEBUG.dump(h);
-  CGD.DEBUG.dump(x);
   var html = CGD.HTML.from(h);
   document.getElementById('tests').innerHTML = html;
 };
