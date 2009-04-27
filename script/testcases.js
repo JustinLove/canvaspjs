@@ -1,6 +1,24 @@
 // Creative Commons Attribution-Share Alike 3.0 Unported Licence
 // http://creativecommons.org/licenses/by-sa/3.0/
 
+CGD.TEST.pjs.circle = function(context, f) {
+  context.save();
+  context.beginPath();
+  context.arc(0, 0, 0.4, 0, CGD.JS.RADIANS, CGD.ARC.CLOCKWISE);
+  context.closePath();
+  f(context);
+  context.restore();
+};
+
+CGD.TEST.pjs.stroke = function(context) {
+  context.lineWidth = 0.1;
+  context.stroke();
+};
+
+CGD.TEST.pjs.fill = function(context) {
+  context.fill();
+};
+
 CGD.TEST.pjs.cases = {
   composite: function(context) {
     context.save();
@@ -27,21 +45,10 @@ CGD.TEST.pjs.cases = {
     context.restore();
   },
   arc: function(context) {
-    context.save();
-    context.beginPath();
-    context.arc(0, 0, 0.4, 0, CGD.JS.RADIANS, CGD.ARC.CLOCKWISE);
-    context.closePath();
-    context.lineWidth = 0.1;
-    context.stroke();
-    context.restore();
+    CGD.TEST.pjs.circle(context, CGD.TEST.pjs.stroke);
   },
   fill: function(context) {
-    context.save();
-    context.beginPath();
-    context.arc(0, 0, 0.4, 0, CGD.JS.RADIANS, CGD.ARC.CLOCKWISE);
-    context.closePath();
-    context.fill();
-    context.restore();
+    CGD.TEST.pjs.circle(context, CGD.TEST.pjs.fill);
   },
   rotate: function(context) {
     context.save();
@@ -55,22 +62,16 @@ CGD.TEST.pjs.cases = {
     context.restore();
   },
   strokeColor: function(context) {
-    context.save();
-    context.beginPath();
-    context.arc(0, 0, 0.4, 0, CGD.JS.RADIANS, CGD.ARC.CLOCKWISE);
-    context.closePath();
-    context.lineWidth = 0.1;
-    context.strokeStyle = 'green';
-    context.stroke();
-    context.restore();
+    CGD.TEST.pjs.circle(context, function(context) {
+      context.lineWidth = 0.1;
+      context.strokeStyle = 'green';
+      context.stroke();
+    });
   },
   fillColor: function(context) {
-    context.save();
-    context.beginPath();
-    context.arc(0, 0, 0.4, 0, CGD.JS.RADIANS, CGD.ARC.CLOCKWISE);
-    context.closePath();
-    context.fillStyle = 'blue';
-    context.fill();
-    context.restore();
+    CGD.TEST.pjs.circle(context, function(context) {
+      context.fillStyle = 'blue';
+      context.fill();
+    });
   }
 };
