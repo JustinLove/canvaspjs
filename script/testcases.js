@@ -85,5 +85,11 @@ CGD.TEST.pjs.cases = {
       context.fillStyle = 'blue';
       context.fill();
     });
+  },
+  image: function(context) {
+    context.drawImage(document.getElementById('tiny'), -0.5, -0.5, 1, 1);
+  },
+  subImage: function(context) {
+    context.drawImage(document.getElementById('tiny'), 1, 1, 1, 1, -0.5, -0.5, 1, 1);
   }
 };
