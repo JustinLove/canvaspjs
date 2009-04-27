@@ -69,6 +69,6 @@ CGD.TEST.pjs.init = function() {
   CGD.DEBUG.on();
 //  CGD.DEBUG.p('test');
   //CGD.TEST.pjs();
-  //CGD.TEST.pjs.runCases();
+  CGD.TEST.pjs.runCases();
   CGD.TEST.pjs.showCases();
 };

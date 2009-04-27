@@ -25,5 +25,14 @@ CGD.TEST.pjs.cases = {
     context.drawImage(document.getElementById('tiny'), 1, 1, 1, 1, -0.5, -0.5, 1, 1);
     context.restore();
     context.restore();
+  },
+  arc: function(context) {
+    context.save();
+    context.beginPath();
+    context.arc(0, 0, 0.4, 0, CGD.JS.RADIANS, CGD.ARC.CLOCKWISE);
+    context.closePath();
+    context.lineWidth = 0.1;
+    context.stroke();
+    context.restore();
   }
 };
