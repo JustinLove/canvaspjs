@@ -34,5 +34,13 @@ CGD.TEST.pjs.cases = {
     context.lineWidth = 0.1;
     context.stroke();
     context.restore();
+  },
+  fill: function(context) {
+    context.save();
+    context.beginPath();
+    context.arc(0, 0, 0.4, 0, CGD.JS.RADIANS, CGD.ARC.CLOCKWISE);
+    context.closePath();
+    context.fill();
+    context.restore();
   }
 };
