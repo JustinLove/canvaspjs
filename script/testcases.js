@@ -86,6 +86,12 @@ CGD.TEST.pjs.cases = {
       context.fill();
     });
   },
+  globalAlpha: function(context) {
+    CGD.TEST.pjs.circle(context, function(context) {
+      context.globalAlpha = 0.5;
+      context.fill();
+    });
+  },
   image: function(context) {
     context.drawImage(document.getElementById('tiny'), -0.5, -0.5, 1, 1);
   },

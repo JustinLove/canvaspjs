@@ -49,8 +49,8 @@ CGD.TEST.pjs.runCases = function() {
 CGD.TEST.pjs.showCases = function() {
   var path = "testcases/";
   var t = CGD.TEST.pjs;
-  var h = {div: {p: []}};
-  var x = h.div.p;
+  var h = {div: {'div.case': []}};
+  var x = h.div['div.case'];
   CGD.OBJECT.forEach(t.cases, function(f, name) {
     x.push({
       'img.eps': {_src: path + name + 'eps.png'},
