@@ -4,3 +4,4 @@ syntax: glob
 *.eps
 *.ps
 *.pdf
+testcases/*.png

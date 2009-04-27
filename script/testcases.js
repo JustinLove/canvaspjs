@@ -42,5 +42,35 @@ CGD.TEST.pjs.cases = {
     context.closePath();
     context.fill();
     context.restore();
+  },
+  rotate: function(context) {
+    context.save();
+    context.rotate(CGD.JS.RADIANS*0.06);
+    context.beginPath();
+    context.moveTo(0, 0);
+    context.arc(0, 0, 0.4, 0, CGD.JS.RADIANS*0.75, CGD.ARC.CLOCKWISE);
+    context.closePath();
+    context.lineWidth = 0.1;
+    context.stroke();
+    context.restore();
+  },
+  strokeColor: function(context) {
+    context.save();
+    context.beginPath();
+    context.arc(0, 0, 0.4, 0, CGD.JS.RADIANS, CGD.ARC.CLOCKWISE);
+    context.closePath();
+    context.lineWidth = 0.1;
+    context.strokeStyle = 'green';
+    context.stroke();
+    context.restore();
+  },
+  fillColor: function(context) {
+    context.save();
+    context.beginPath();
+    context.arc(0, 0, 0.4, 0, CGD.JS.RADIANS, CGD.ARC.CLOCKWISE);
+    context.closePath();
+    context.fillStyle = 'blue';
+    context.fill();
+    context.restore();
   }
 };
