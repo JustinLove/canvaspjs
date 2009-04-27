@@ -1,2 +1,2 @@
 #!/bin/sh
-mogrify -format png arceps.eps compositeeps.eps
+mogrify -format png *.eps
