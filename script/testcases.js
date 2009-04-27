@@ -50,6 +50,18 @@ CGD.TEST.pjs.cases = {
   fill: function(context) {
     CGD.TEST.pjs.circle(context, CGD.TEST.pjs.fill);
   },
+  scale: function(context) {
+    context.save();
+    context.scale(0.5, 0.5);
+    CGD.TEST.pjs.cases.arc(context);
+    context.restore();
+  },
+  translate: function(context) {
+    context.save();
+    context.translate(0.2, 0.2);
+    CGD.TEST.pjs.cases.arc(context);
+    context.restore();
+  },
   rotate: function(context) {
     context.save();
     context.rotate(CGD.JS.RADIANS*0.06);
