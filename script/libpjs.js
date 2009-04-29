@@ -299,8 +299,7 @@
         operator('gsave').operator('stroke').operator('grestore');
     },
     clip: function(){
-      objectData(this).ps.missing('clip');
-      
+      objectData(this).ps.operator('clip');
     },
     isPointInPath: function(x, y){
       objectData(this).ps.missing('isPointInPath');
