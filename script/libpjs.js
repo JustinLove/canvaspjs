@@ -241,8 +241,9 @@
       objectData(this).ps.comment('clearRect');
     },
     fillRect: function(x, y, w, h){
-      objectData(this).ps.missing('fillRect');
-      
+      objectData(this).ps.color(this.fillStyle).
+        push(x).push(y).push(w).push(h).
+        operator('rectfill');
     },
     strokeRect: function(x, y, w, h){
       objectData(this).ps.missing('strokeRect');
