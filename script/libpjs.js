@@ -277,8 +277,12 @@
       
     },
     rect: function(x, y, w, h){
-      objectData(this).ps.missing('rect');
-      
+      objectData(this).ps.
+        push(x).push(y).operator('moveto').n().
+        push(w).push(0).operator('rlineto').n().
+        push(0).push(h).operator('rlineto').n().
+        push(-w).push(0).operator('rlineto').n().
+        operator('closepath');
     },
     arc: function(x, y, radius, startAngle, endAngle, anticlockwise){
       objectData(this).ps.push(x).push(y).
