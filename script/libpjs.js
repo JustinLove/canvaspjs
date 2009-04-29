@@ -69,6 +69,10 @@
   
   mixSafe(PJS.Postscript.prototype, {
     body: "",
+    missing: function(x) {
+      missing(x);
+      this.comment('missing ' + x);
+    },
     push: function(x){
       this.body += x + " ";
       return this;
@@ -195,7 +199,7 @@
       objectData(this).ps.push(x).push(y).operator('translate');
     },
     setTransform: function(m11, m12, m21, m22, dx, dy){
-      missing('setTransform');
+      objectData(this).ps.missing('setTransform');
       
     },
     
@@ -207,15 +211,15 @@
     strokeStyle: 'black',
     fillStyle: 'black',
     createLinearGradient: function(x0, y0, x1, y1){
-      missing('createLinearGradient');
+      objectData(this).ps.missing('createLinearGradient');
       //CanvasGradient
     },
     createRadialGradient: function(x0, y0, r0, x1, y1, r1){
-      missing('createRadialGradient');
+      objectData(this).ps.missing('createRadialGradient');
       //CanvasGradient
     },
     createPattern: function(image, repetition){
-      missing('createPattern');
+      objectData(this).ps.missing('createPattern');
       //CanvasPattern
     },
     
@@ -237,11 +241,11 @@
       objectData(this).ps.comment('clearRect');
     },
     fillRect: function(x, y, w, h){
-      missing('fillRect');
+      objectData(this).ps.missing('fillRect');
       
     },
     strokeRect: function(x, y, w, h){
-      missing('strokeRect');
+      objectData(this).ps.missing('strokeRect');
       
     },
     
@@ -256,23 +260,23 @@
       objectData(this).ps.push(x).push(y).operator('moveto');
     },
     lineTo: function(x, y){
-      missing('lineTo');
+      objectData(this).ps.missing('lineTo');
       
     },
     quadraticCurveTo: function(cpx, cpy, x, y){
-      missing('quadraticCurveTo');
+      objectData(this).ps.missing('quadraticCurveTo');
       
     },
     bezierCurveTo: function(cp1x, cp1y, cp2x, cp2y, x, y){
-      missing('bezierCurveTo');
+      objectData(this).ps.missing('bezierCurveTo');
       
     },
     arcTo: function(x1, y1, x2, y2, radius){
-      missing('arcTo');
+      objectData(this).ps.missing('arcTo');
       
     },
     rect: function(x, y, w, h){
-      missing('rect');
+      objectData(this).ps.missing('rect');
       
     },
     arc: function(x, y, radius, startAngle, endAngle, anticlockwise){
@@ -290,11 +294,11 @@
         operator('gsave').operator('stroke').operator('grestore');
     },
     clip: function(){
-      missing('clip');
+      objectData(this).ps.missing('clip');
       
     },
     isPointInPath: function(x, y){
-      missing('isPointInPath');
+      objectData(this).ps.missing('isPointInPath');
       return false;
     },
     
@@ -303,15 +307,15 @@
     textAlign: "start",
     textBaseline: "alphabetic",
     fillText: function(text, x, y, maxWidth){
-      missing('fillText');
+      objectData(this).ps.missing('fillText');
       
     },
     strokeText: function(text, x, y, maxWidth){
-      missing('strokeText');
+      objectData(this).ps.missing('strokeText');
       
     },
     measureText: function(text){
-      missing('measureText');
+      objectData(this).ps.missing('measureText');
       return new PJS.TextMetrics();
     },
     
@@ -417,15 +421,15 @@
     
     //pixel manipulation
     createImageData: function(sw, sh){
-      missing('createImageData');
+      objectData(this).ps.missing('createImageData');
       return new PJS.ImageData();
     },
     getImageData: function(sx, sy, sw, sh){
-      missing('getImageData');
+      objectData(this).ps.missing('getImageData');
       return new PJS.ImageData();
     },
     putImageData: function(imageData, dx, dy, dirtyX, dirtyY, dirtyWidth, dirtyHeight){
-      missing('putImageData');
+      objectData(this).ps.missing('putImageData');
       
     },
     
