@@ -278,10 +278,10 @@
     },
     rect: function(x, y, w, h){
       objectData(this).ps.
-        push(x).push(y).operator('moveto').n().
-        push(w).push(0).operator('rlineto').n().
-        push(0).push(h).operator('rlineto').n().
-        push(-w).push(0).operator('rlineto').n().
+        push(x).push(y).operator('moveto').
+        push(w).push(0).operator('rlineto').
+        push(0).push(h).operator('rlineto').
+        push(-w).push(0).operator('rlineto').
         operator('closepath');
     },
     arc: function(x, y, radius, startAngle, endAngle, anticlockwise){
