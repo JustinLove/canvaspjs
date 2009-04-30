@@ -16,7 +16,7 @@
     if (kind == "cgd-postscript") {
       return new PJS.CanvasRenderingContextPostscript(this);
     } else {
-      return objectData(this).oldGetContext.call(this, kind);
+      return objectData(this).oldGetContext.apply(this, arguments);
     }
   };
 
