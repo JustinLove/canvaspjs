@@ -423,19 +423,10 @@
       this.restore();
     },
     
-    //pixel manipulation
-    createImageData: function(sw, sh){
-      objectData(this).ps.missing('createImageData');
-      return new PJS.ImageData();
-    },
-    getImageData: function(sx, sy, sw, sh){
-      objectData(this).ps.missing('getImageData');
-      return new PJS.ImageData();
-    },
-    putImageData: function(imageData, dx, dy, dirtyX, dirtyY, dirtyWidth, dirtyHeight){
-      objectData(this).ps.missing('putImageData');
-      
-    },
+    // Unimplemented: pixel manipulation
+    //createImageData: function(sw, sh)
+    //getImageData: function(sx, sy, sw, sh)
+    //putImageData: function(imageData, dx, dy, dirtyX, dirtyY, dirtyWidth, dirtyHeight)
     
     //PJs
     getPostscriptData: function(kind){
@@ -474,36 +465,4 @@
   mixSafe(PJS.TextMetrics.prototype, {
     width: 0.0
   });
-
-  PJS.ImageData = function() {
-    if (this == god || this == PJS) {
-      return new PJS.ImageData();
-    }
-  };
-  
-  mixSafe(PJS.ImageData.prototype, {
-    width: 0,
-    height: 0,
-    data: null // CanvasPixelArray
-  });
-
-  PJS.CanvasPixelArray = function() {
-    if (this == god || this == PJS) {
-      return new PJS.CanvasPixelArray();
-    }
-  };
-  
-  mixSafe(PJS.CanvasPixelArray.prototype, {
-    length: 0,
-    XXX5: function(index){
-      missing('XXX5');
-      return 0;
-      //octet
-    },
-    XXX6: function(index, value){
-      missing('XXX6');
-      
-    }
-  });
-  
 })();
