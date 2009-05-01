@@ -1,0 +1,2 @@
+- The image API (getImageData and friends) makes no sense, and is unsupported.
+- Canvas save/restore is specified to leave the current path unaffected, however in postscript gsave/grestore do preserve the path.
