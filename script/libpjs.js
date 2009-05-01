@@ -164,12 +164,28 @@
     }
   });
   
+  PJS.state = [
+    'strokeStyle',
+    'fillStyle',
+    'globalAlpha',
+    'lineWidth',
+    'lineCap',
+    'lineJoin',
+    'miterLimit',
+    'shadowOffsetX',
+    'shadowOffsetY',
+    'shadowBlur',
+    'shadowColor',
+    'globalCompositeOperation'
+  ];
+  
   PJS.CanvasRenderingContextPostscript = function(node) {
     if (this == god || this == PJS) {
       return new PJS.CanvasRenderingContextPostscript(node);
     }
     this.canvas = node;
     objectData(this).ps = (new PJS.Postscript());
+    objectData(this).stack = [];
     this.translate(0, node.height);
     this.scale(1, -1);
     return this;
@@ -181,9 +197,20 @@
     //state
     save: function(){
       objectData(this).ps.operator("gsave");
+      var my = this;
+      var stack = {};
+      ARRAY.forEach(PJS.state, function(st) {
+        stack[st] = my[st];
+      });
+      objectData(this).stack.push(stack);
     },
     restore: function(){
       objectData(this).ps.operator("grestore");
+      var my = this;
+      var stack = objectData(this).stack.pop();
+      ARRAY.forEach(PJS.state, function(st) {
+        my[st] = stack[st];
+      });
     },
     
     //transformations
