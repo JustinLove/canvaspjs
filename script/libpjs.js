@@ -196,21 +196,23 @@
     
     //state
     save: function(){
-      objectData(this).ps.operator("gsave");
       var my = this;
       var stack = {};
       ARRAY.forEach(PJS.state, function(st) {
         stack[st] = my[st];
       });
       objectData(this).stack.push(stack);
+      objectData(this).ps.operator("gsave");
     },
     restore: function(){
-      objectData(this).ps.operator("grestore");
       var my = this;
       var stack = objectData(this).stack.pop();
-      ARRAY.forEach(PJS.state, function(st) {
-        my[st] = stack[st];
-      });
+      if (stack) {
+        ARRAY.forEach(PJS.state, function(st) {
+          my[st] = stack[st];
+        });
+        objectData(this).ps.operator("grestore");
+      }
     },
     
     //transformations
