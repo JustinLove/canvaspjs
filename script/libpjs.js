@@ -128,6 +128,9 @@
       this.used[join] = this.helpers[join];
       return this.push(join).operator('setlinejoin');
     },
+    miterLimit: function(l){
+      return this.number(l).operator('setmiterlimit');
+    },
     comment: function(x){
       return this.operator("% " + x);
     },
@@ -365,6 +368,7 @@
         lineWidth(this.lineWidth).
         lineCap(this.lineCap).
         lineJoin(this.lineJoin).
+        miterLimit(this.miterLimit).
         color(this.strokeStyle, this.canvas.style.color).
         operator('gsave').operator('stroke').operator('grestore');
     },
