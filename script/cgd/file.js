@@ -21,7 +21,7 @@ CGD.FILE = CGD.FILE || {
 
 // http://developer.mozilla.org/en/docs/Code_snippets:Canvas
 CGD.FILE.saveDataURL = function(dataURL, destFile) {
-  CGD.DEBUG.p([dataURL.substr(0, 32), destFile]);
+  //CGD.DEBUG.p([dataURL.substr(0, 32), destFile]);
   // convert string filepath to an nsIFile
   netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
   var file = Components.classes["@mozilla.org/file/local;1"]
@@ -53,7 +53,7 @@ CGD.FILE.saveDataURL = function(dataURL, destFile) {
 
 //https://developer.mozilla.org/en/Code_snippets/File_I%2f%2fO
 CGD.FILE.saveString = function(s, destFile) {
-  CGD.DEBUG.p([s.substr(0, 32), destFile]);
+  //CGD.DEBUG.p([s.substr(0, 32), destFile]);
   // convert string filepath to an nsIFile
   netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
   var file = Components.classes["@mozilla.org/file/local;1"]
