@@ -138,6 +138,16 @@ CGD.STRING = CGD.STRING || {};
 
   function rgbFromString(s) {
     var m;
+    function parse(s) {
+      if (s.match('%')) {
+        return parseInt(s, 10) * 2.55;
+      } else {
+        return parseInt(s, 10) / 255;
+      }
+    }
+    function c(s) {
+      return Math.max(0, Math.min(255, parse(s)));
+    }
     if (!s) {
       return rgbFromString('white');
     } else if (CGD.RGB.STRINGS[s.toLowerCase()]) {
@@ -149,18 +159,18 @@ CGD.STRING = CGD.STRING || {};
     } else if ((m = s.match(/rgb\((.*)\)/))) {
       var parts = m[1].split(',');
       return {
-        r: parseInt(parts[0], 10)/255,
-        g: parseInt(parts[1], 10)/255,
-        b: parseInt(parts[2], 10)/255,
+        r: c(parts[0]),
+        g: c(parts[1]),
+        b: c(parts[2]),
         a: 1.0
       };
     } else if ((m = s.match(/rgba\((.*)\)/))) {
       var parts = m[1].split(',');
       return {
-        r: parseInt(parts[0], 10)/255,
-        g: parseInt(parts[1], 10)/255,
-        b: parseInt(parts[2], 10)/255,
-        a: parseFloat(parts[3], 10)
+        r: c(parts[0]),
+        g: c(parts[1]),
+        b: c(parts[2]),
+        a: parseFloat(parts[3])
       };
     } else {
       throw new TypeError(s + ' is not a color');
