@@ -74,7 +74,26 @@
       SQUARE: 2,
       MITER: 0,
       //ROUND: 1,
-      BEVEL: 2
+      BEVEL: 2,
+      //http://fontforge.sourceforge.net/bezier.html
+      quadraticCurveTo: "{\
+  8 dict begin\
+  /q2y exch def\
+  /q2x exch def\
+  /q1y exch def\
+  /q1x exch def\
+  currentpoint\
+  /q0y exch def\
+  /q0x exch def\
+  q1x q0x sub 2 3 div mul q0x add dup /c1x exch def\
+  q1y q0y sub 2 3 div mul q0y add dup /c1y exch def\
+  q2x q0x sub 1 3 div mul c1x add\
+  q2y q0y sub 1 3 div mul c1y add\
+  q2x\
+  q2y\
+  curveto\
+  end\
+}"
     },
     used: {},
     
@@ -104,6 +123,9 @@
       return this.operator("");
     },
     operator: function(x){
+      if (x in this.helpers) {
+        this.used[x] = this.helpers[x];
+      }
       this.body += this.line + x + "\n";
       this.line = "";
       return this;
@@ -345,8 +367,10 @@
       objectData(this).ps.number(x).number(y).operator('lineto');
     },
     quadraticCurveTo: function(cpx, cpy, x, y){
-      objectData(this).ps.missing('quadraticCurveTo');
-      
+      objectData(this).ps.
+      number(cpx).number(cpy).
+      number(x).number(y).
+      operator('quadraticCurveTo');
     },
     bezierCurveTo: function(cp1x, cp1y, cp2x, cp2y, x, y){
       objectData(this).ps.missing('bezierCurveTo');
