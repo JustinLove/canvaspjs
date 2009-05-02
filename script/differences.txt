@@ -2,3 +2,4 @@
 - Canvas save/restore is specified to leave the current path unaffected, however in postscript gsave/grestore do preserve the path.
 - Properties like strokeStyle and globalAlpha are just plain old JS properties, so they stay what you set them to; canvas is supposed to ignore out-of-range alpha values, for instance.
 - Alpha is unsupported in postscript, which really stinks.
+- globalCompositeOperator is a pixel operation, and is unsupported.

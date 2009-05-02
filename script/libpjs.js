@@ -179,7 +179,7 @@
   PJS.state = [
     'strokeStyle',
     'fillStyle',
-    'globalAlpha',
+    //'globalAlpha',
     'lineWidth',
     'lineCap',
     'lineJoin',
@@ -187,8 +187,8 @@
     'shadowOffsetX',
     'shadowOffsetY',
     'shadowBlur',
-    'shadowColor',
-    'globalCompositeOperation'
+    'shadowColor'
+    //'globalCompositeOperation'
   ];
   
   PJS.CanvasRenderingContextPostscript = function(node) {
@@ -247,8 +247,8 @@
     },
     
     //composting
-    globalAlpha: 1.0,
-    globalCompositeOperation: "source-over",
+    //globalAlpha: 1.0,
+    //globalCompositeOperation: "source-over",
     
     //colors and styles
     strokeStyle: 'black',
