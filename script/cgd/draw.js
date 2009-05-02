@@ -170,7 +170,7 @@ CGD.STRING = CGD.STRING || {};
         r: c(parts[0]),
         g: c(parts[1]),
         b: c(parts[2]),
-        a: parseFloat(parts[3])
+        a: Math.max(0.0, Math.min(1.0, parseFloat(parts[3])))
       };
     } else {
       throw new TypeError(s + ' is not a color');
