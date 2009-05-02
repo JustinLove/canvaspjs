@@ -71,7 +71,10 @@
     helpers: {
       butt: 0,
       round: 1,
-      square: 2
+      square: 2,
+      miter: 0,
+      //round: 1,
+      bevel: 2
     },
     used: {},
     
@@ -118,6 +121,10 @@
     lineCap: function(cap){
       this.used[cap] = this.helpers[cap];
       return this.push(cap).operator('setlinecap');
+    },
+    lineJoin: function(join){
+      this.used[join] = this.helpers[join];
+      return this.push(join).operator('setlinejoin');
     },
     comment: function(x){
       return this.operator("% " + x);
@@ -355,6 +362,7 @@
       objectData(this).ps.
         lineWidth(this.lineWidth).
         lineCap(this.lineCap).
+        lineJoin(this.lineJoin).
         color(this.strokeStyle, this.canvas.style.color).
         operator('gsave').operator('stroke').operator('grestore');
     },
