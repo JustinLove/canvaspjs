@@ -235,6 +235,9 @@
     translate: function(x, y){
       objectData(this).ps.number(x).number(y).operator('translate');
     },
+    transform: function(m11, m12, m21, m22, dx, dy){
+      objectData(this).ps.missing('transform');
+    },
     setTransform: function(m11, m12, m21, m22, dx, dy){
       objectData(this).ps.missing('setTransform');
       
