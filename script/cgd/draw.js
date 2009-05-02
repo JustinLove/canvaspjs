@@ -137,6 +137,7 @@ CGD.STRING = CGD.STRING || {};
   }
 
   function rgbFromString(s) {
+    var m;
     if (!s) {
       return rgbFromString('white');
     } else if (CGD.RGB.STRINGS[s]) {
@@ -145,6 +146,9 @@ CGD.STRING = CGD.STRING || {};
       return rgbFromHex3(s);
     } else if (s.length == 7) {
       return rgbFromHex6(s);
+    } else if ((m = s.match(/rgba\((.*)\)/))) {
+      var parts = m[1].split(',');
+      return {r: parts[0], g: parts[1], b: parts[2], a: parts[3]};
     } else {
       throw new TypeError(s + ' is not a color');
     }
