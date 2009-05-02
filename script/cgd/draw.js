@@ -203,7 +203,18 @@ CGD.STRING = CGD.STRING || {};
       };
     } else if ((m = s.match(/hsl\((.*)\)/))) {
       var parts = m[1].split(',');
-      return rgbFromHsl(parseInt(parts[0], 10)/360, c(parts[1], 1), c(parts[2], 1));
+      return rgbFromHsl(
+        parseInt(parts[0], 10)/360,
+        c(parts[1], 1),
+        c(parts[2], 1));
+    } else if ((m = s.match(/hsla\((.*)\)/))) {
+      var parts = m[1].split(',');
+      var rgb = rgbFromHsl(
+        parseInt(parts[0], 10)/360,
+        c(parts[1], 1),
+        c(parts[2], 1));
+      rgb.a = c(parts[3], 1.0);
+      return rgb;
     } else {
       throw new TypeError(s + ' is not a color');
     }
