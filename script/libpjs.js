@@ -77,11 +77,18 @@
       this.body += x + " ";
       return this;
     },
+    number: function(x){
+      if (isFinite(x)) {
+        return this.push(x);
+      } else {
+        throw new RangeError("postscript arguments must be finite");
+      }
+    },
     radians: function(x){
-      return this.push(x * 360 / CGD.JS.RADIANS);
+      return this.number(x * 360 / CGD.JS.RADIANS);
     },
     degrees: function(x){
-      return this.push(x);
+      return this.number(x);
     },
     n: function(x){
       this.body += "\n";
@@ -93,10 +100,10 @@
     },
     color: function(s){
       var c = CGD.RGB.fromString(s);
-      return this.push(c.r).push(c.g).push(c.b).operator('setrgbcolor');
+      return this.number(c.r).number(c.g).number(c.b).operator('setrgbcolor');
     },
     lineWidth: function(w){
-      return this.push(w).operator('setlinewidth');
+      return this.number(w).operator('setlinewidth');
     },
     comment: function(x){
       this.body += "% " + x + "\n";
@@ -114,7 +121,7 @@
     },
     smart: function(x){
       switch(typeof(x)) {
-        case 'number': this.push(x); break;
+        case 'number': this.number(x); break;
         case 'string': this.push(x); break;
         case 'object':
           if (CGD.ARRAY.describes(x)) {
