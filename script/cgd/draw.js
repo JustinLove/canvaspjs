@@ -140,8 +140,8 @@ CGD.STRING = CGD.STRING || {};
     var m;
     if (!s) {
       return rgbFromString('white');
-    } else if (CGD.RGB.STRINGS[s]) {
-      return rgbFromString(CGD.RGB.STRINGS[s]);
+    } else if (CGD.RGB.STRINGS[s.toLowerCase()]) {
+      return rgbFromString(CGD.RGB.STRINGS[s.toLowerCase()]);
     } else if (s.length == 4) {
       return rgbFromHex3(s);
     } else if (s.length == 7) {
