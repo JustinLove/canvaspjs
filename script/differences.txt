@@ -4,6 +4,7 @@ Things that cannot be implemented by postscript:
 - Canvas save/restore is specified to leave the current path unaffected, however in postscript gsave/grestore do preserve the path.
 - Alpha is unsupported in postscript, which really stinks.
 - globalCompositeOperator is a pixel operation, and is unsupported.
+- clearRect can't be implemented in a general way.  As a special case, it might be possible to detect full-screen clears and just scrap everything.  However, this gets complicated when transforms are involved.
 
 Potentially messy topics that haven't been implemented yet:
 
