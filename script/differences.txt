@@ -1,6 +1,15 @@
+Things that cannot be implemented by postscript:
+
 - The image API (getImageData and friends) makes no sense, and is unsupported.
 - Canvas save/restore is specified to leave the current path unaffected, however in postscript gsave/grestore do preserve the path.
-- Properties like strokeStyle and globalAlpha are just plain old JS properties, so they stay what you set them to; canvas is supposed to ignore out-of-range alpha values, for instance.
 - Alpha is unsupported in postscript, which really stinks.
 - globalCompositeOperator is a pixel operation, and is unsupported.
+
+Potentially messy topics that haven't been implemented yet:
+
 - fillStyle = 'transparent' (and equivalently, alpha 0.0) are not implemented, though in principal they could be, by state tracking.
+- gradients and patterns are are not yet implemented; in principle postscript supports them, but I've put off a potentially messy topic.
+
+Features that might possible be supported using browser-specific features:
+
+- Properties like strokeStyle and globalAlpha are just plain old JS properties, so they stay what you set them to; canvas is supposed to ignore out-of-range alpha values, for instance.
