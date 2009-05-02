@@ -98,7 +98,10 @@
       this.line = "";
       return this;
     },
-    color: function(s){
+    color: function(s, current){
+      if (s == 'currentColor' && current) {
+        s = current;
+      }
       var c = CGD.RGB.fromString(s);
       return this.number(c.r).number(c.g).number(c.b).operator('setrgbcolor');
     },
@@ -284,7 +287,7 @@
       objectData(this).ps.comment('clearRect');
     },
     fillRect: function(x, y, w, h){
-      objectData(this).ps.color(this.fillStyle).
+      objectData(this).ps.color(this.fillStyle, this.canvas.style.color).
         number(x).number(y).number(w).number(h).
         operator('rectfill');
     },
@@ -332,12 +335,12 @@
         operator(anticlockwise ? 'arcn' : 'arc');
     },
     fill: function(){
-      objectData(this).ps.color(this.fillStyle).
+      objectData(this).ps.color(this.fillStyle, this.canvas.style.color).
         operator('gsave').operator('fill').operator('grestore');
     },
     stroke: function(){
       objectData(this).ps.lineWidth(this.lineWidth).
-        color(this.strokeStyle).
+        color(this.strokeStyle, this.canvas.style.color).
         operator('gsave').operator('stroke').operator('grestore');
     },
     clip: function(){
