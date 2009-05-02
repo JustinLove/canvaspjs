@@ -69,12 +69,12 @@
   
   mixSafe(PJS.Postscript.prototype, {
     helpers: {
-      butt: 0,
-      round: 1,
-      square: 2,
-      miter: 0,
-      //round: 1,
-      bevel: 2
+      BUTT: 0,
+      ROUND: 1,
+      SQUARE: 2,
+      MITER: 0,
+      //ROUND: 1,
+      BEVEL: 2
     },
     used: {},
     
@@ -119,10 +119,12 @@
       return this.number(w).operator('setlinewidth');
     },
     lineCap: function(cap){
+      cap = cap.toUpperCase();
       this.used[cap] = this.helpers[cap];
       return this.push(cap).operator('setlinecap');
     },
     lineJoin: function(join){
+      join = join.toUpperCase();
       this.used[join] = this.helpers[join];
       return this.push(join).operator('setlinejoin');
     },
