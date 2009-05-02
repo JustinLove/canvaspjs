@@ -116,7 +116,7 @@
       return this.operator('>>');
     },
     array: function(array){
-      return this.push('[' + array.join(' ') + ']');
+      return this.push('[' + Array.prototype.join.call(array, ' ') + ']');
     },
     smart: function(x){
       switch(typeof(x)) {
@@ -236,7 +236,7 @@
       objectData(this).ps.number(x).number(y).operator('translate');
     },
     transform: function(m11, m12, m21, m22, dx, dy){
-      objectData(this).ps.missing('transform');
+      objectData(this).ps.array(arguments).operator('concat');
     },
     setTransform: function(m11, m12, m21, m22, dx, dy){
       objectData(this).ps.missing('setTransform');
