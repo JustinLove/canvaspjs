@@ -301,8 +301,7 @@
       objectData(this).ps.number(x).number(y).operator('moveto');
     },
     lineTo: function(x, y){
-      objectData(this).ps.missing('lineTo');
-      
+      objectData(this).ps.number(x).number(y).operator('lineto');
     },
     quadraticCurveTo: function(cpx, cpy, x, y){
       objectData(this).ps.missing('quadraticCurveTo');
