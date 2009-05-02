@@ -146,6 +146,9 @@ CGD.STRING = CGD.STRING || {};
       return rgbFromHex3(s);
     } else if (s.length == 7) {
       return rgbFromHex6(s);
+    } else if ((m = s.match(/rgb\((.*)\)/))) {
+      var parts = m[1].split(',');
+      return {r: parts[0], g: parts[1], b: parts[2], a: 1.0};
     } else if ((m = s.match(/rgba\((.*)\)/))) {
       var parts = m[1].split(',');
       return {r: parts[0], g: parts[1], b: parts[2], a: parts[3]};
