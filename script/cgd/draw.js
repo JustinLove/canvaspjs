@@ -208,7 +208,7 @@ CGD.STRING = CGD.STRING || {};
       };
     } else if ((m = s.match(/hsl\((.*)\)/))) {
       var parts = m[1].split(',');
-      return rgbFromHsl(c(parts[0], 360), c(parts[1], 1), c(parts[2], 1));
+      return rgbFromHsl(parseInt(parts[0], 10)/360, c(parts[1], 1), c(parts[2], 1));
     } else {
       throw new TypeError(s + ' is not a color');
     }
