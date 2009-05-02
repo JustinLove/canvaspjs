@@ -317,6 +317,10 @@
         operator('rectfill');
     },
     strokeRect: function(x, y, w, h){
+      if (w == 0 && h == 0) {
+        objectData(this).ps.comment('zero-size rectStroke');
+        return;
+      }
       objectData(this).ps.
         lineWidth(this.lineWidth).
         lineCap(this.lineCap).
