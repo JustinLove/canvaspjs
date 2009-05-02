@@ -169,9 +169,9 @@ CGD.STRING = CGD.STRING || {};
     var m;
     function parse(s, range) {
       if (s.match('%')) {
-        return parseInt(s, 10) / 100 * range;
+        return parseFloat(s, 10) / 100 * range;
       } else {
-        return parseInt(s, 10) / range;
+        return parseFloat(s, 10) / range;
       }
     }
     function c(s, range) {
