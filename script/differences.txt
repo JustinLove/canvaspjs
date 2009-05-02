@@ -3,3 +3,4 @@
 - Properties like strokeStyle and globalAlpha are just plain old JS properties, so they stay what you set them to; canvas is supposed to ignore out-of-range alpha values, for instance.
 - Alpha is unsupported in postscript, which really stinks.
 - globalCompositeOperator is a pixel operation, and is unsupported.
+- fillStyle = 'transparent' (and equivalently, alpha 0.0) are not implemented, though in principal they could be, by state tracking.
