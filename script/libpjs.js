@@ -116,7 +116,11 @@
       return this.operator('>>');
     },
     array: function(array){
-      return this.push('[' + Array.prototype.join.call(array, ' ') + ']');
+      this.push('[');
+      for (var i = 0;i < array.length;i++) {
+        this.smart(array[i]);
+      }
+      return this.push(']');
     },
     smart: function(x){
       switch(typeof(x)) {
