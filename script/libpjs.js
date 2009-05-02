@@ -225,14 +225,14 @@
     //transformations
     scale: function(x, y){
       if (x != 1 || y != 1) {
-        objectData(this).ps.push(x).push(y).operator('scale');
+        objectData(this).ps.number(x).number(y).operator('scale');
       }
     },
     rotate: function(angle){
       objectData(this).ps.radians(angle).operator('rotate');
     },
     translate: function(x, y){
-      objectData(this).ps.push(x).push(y).operator('translate');
+      objectData(this).ps.number(x).number(y).operator('translate');
     },
     setTransform: function(m11, m12, m21, m22, dx, dy){
       objectData(this).ps.missing('setTransform');
@@ -278,7 +278,7 @@
     },
     fillRect: function(x, y, w, h){
       objectData(this).ps.color(this.fillStyle).
-        push(x).push(y).push(w).push(h).
+        number(x).number(y).number(w).number(h).
         operator('rectfill');
     },
     strokeRect: function(x, y, w, h){
@@ -294,7 +294,7 @@
       objectData(this).ps.operator('closepath');
     },
     moveTo: function(x, y){
-      objectData(this).ps.push(x).push(y).operator('moveto');
+      objectData(this).ps.number(x).number(y).operator('moveto');
     },
     lineTo: function(x, y){
       objectData(this).ps.missing('lineTo');
@@ -314,15 +314,15 @@
     },
     rect: function(x, y, w, h){
       objectData(this).ps.
-        push(x).push(y).operator('moveto').
-        push(w).push(0).operator('rlineto').
-        push(0).push(h).operator('rlineto').
-        push(-w).push(0).operator('rlineto').
+        number(x).number(y).operator('moveto').
+        number(w).number(0).operator('rlineto').
+        number(0).number(h).operator('rlineto').
+        number(-w).number(0).operator('rlineto').
         operator('closepath');
     },
     arc: function(x, y, radius, startAngle, endAngle, anticlockwise){
-      objectData(this).ps.push(x).push(y).
-        push(radius).radians(startAngle).radians(endAngle).
+      objectData(this).ps.number(x).number(y).
+        number(radius).radians(startAngle).radians(endAngle).
         operator(anticlockwise ? 'arcn' : 'arc');
     },
     fill: function(){
