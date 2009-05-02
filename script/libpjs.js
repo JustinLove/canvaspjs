@@ -368,13 +368,16 @@
     },
     quadraticCurveTo: function(cpx, cpy, x, y){
       objectData(this).ps.
-      number(cpx).number(cpy).
-      number(x).number(y).
-      operator('quadraticCurveTo');
+        number(cpx).number(cpy).
+        number(x).number(y).
+        operator('quadraticCurveTo');
     },
     bezierCurveTo: function(cp1x, cp1y, cp2x, cp2y, x, y){
-      objectData(this).ps.missing('bezierCurveTo');
-      
+      objectData(this).ps.
+        number(cp1x).number(cp1y).
+        number(cp2x).number(cp2y).
+        number(x).number(y).
+        operator('curveto');
     },
     arcTo: function(x1, y1, x2, y2, radius){
       objectData(this).ps.missing('arcTo');
