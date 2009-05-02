@@ -69,20 +69,20 @@
   
   mixSafe(PJS.Postscript.prototype, {
     body: "",
+    line: "",
     missing: function(x) {
       missing(x);
       this.comment('missing ' + x);
     },
     push: function(x){
-      this.body += x + " ";
+      this.line += x + " ";
       return this;
     },
     number: function(x){
-      if (isFinite(x)) {
-        return this.push(x);
-      } else {
-        throw new RangeError("postscript arguments must be finite");
+      if (!isFinite(x)) {
+        this.line = "% " + this.line;
       }
+      return this.push(x);
     },
     radians: function(x){
       return this.number(x * 360 / CGD.JS.RADIANS);
@@ -91,11 +91,11 @@
       return this.number(x);
     },
     n: function(x){
-      this.body += "\n";
-      return this;
+      return this.operator("");
     },
     operator: function(x){
-      this.body += x + "\n";
+      this.body += this.line + x + "\n";
+      this.line = "";
       return this;
     },
     color: function(s){
@@ -106,8 +106,7 @@
       return this.number(w).operator('setlinewidth');
     },
     comment: function(x){
-      this.body += "% " + x + "\n";
-      return this;
+      return this.operator("% " + x);
     },
     dictionary: function(dict){
       this.operator('<<');
@@ -164,6 +163,8 @@
       return this.data(data);
     },
     text: function(width, height){
+      this.body += this.line;
+      this.line = "";
       return "%!PS-Adobe-3.0 EPSF-3.0\n" + 
         "%%BoundingBox: 0 0 " + 
         width + " " + height + "\n" +
