@@ -317,8 +317,14 @@
         operator('rectfill');
     },
     strokeRect: function(x, y, w, h){
-      objectData(this).ps.missing('strokeRect');
-      
+      objectData(this).ps.
+        lineWidth(this.lineWidth).
+        lineCap(this.lineCap).
+        lineJoin(this.lineJoin).
+        miterLimit(this.miterLimit).
+        color(this.strokeStyle, this.canvas.style.color).
+        number(x).number(y).number(w).number(h).
+        operator('rectstroke');
     },
     
     //path API
