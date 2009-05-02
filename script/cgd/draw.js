@@ -148,10 +148,20 @@ CGD.STRING = CGD.STRING || {};
       return rgbFromHex6(s);
     } else if ((m = s.match(/rgb\((.*)\)/))) {
       var parts = m[1].split(',');
-      return {r: parts[0], g: parts[1], b: parts[2], a: 1.0};
+      return {
+        r: parseInt(parts[0], 10)/255,
+        g: parseInt(parts[1], 10)/255,
+        b: parseInt(parts[2], 10)/255,
+        a: 1.0
+      };
     } else if ((m = s.match(/rgba\((.*)\)/))) {
       var parts = m[1].split(',');
-      return {r: parts[0], g: parts[1], b: parts[2], a: parts[3]};
+      return {
+        r: parseInt(parts[0], 10)/255,
+        g: parseInt(parts[1], 10)/255,
+        b: parseInt(parts[2], 10)/255,
+        a: parseFloat(parts[3], 10)
+      };
     } else {
       throw new TypeError(s + ' is not a color');
     }
