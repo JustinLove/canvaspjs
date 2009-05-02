@@ -146,7 +146,7 @@ CGD.STRING = CGD.STRING || {};
     } else if (s.length == 7) {
       return rgbFromHex6(s);
     } else {
-      throw s + ' is not a color';
+      throw new TypeError(s + ' is not a color');
     }
   }
   CGD.RGB.fromString = rgbFromString;
