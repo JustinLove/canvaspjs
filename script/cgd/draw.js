@@ -136,6 +136,40 @@ CGD.STRING = CGD.STRING || {};
     return {r: c(s, 1), g: c(s, 2), b: c(s, 3)};
   }
 
+  function componentFromHue(m1, m2, h) {
+    if (h < 0) {
+      h = h + 1;
+    }
+    if (h > 1) {
+      h = h - 1;
+    }
+    if (h*6 < 1) {
+      return m1 + (m2-m1) * h*6;
+    }
+    if (h*2 < 1) {
+      return m2;
+    }
+    if (h*3 < 2) {
+      return m1 + (m2-m1) * (2/3 - h) * 6;
+    }
+    return m1;
+  }
+  
+  function rgbFromHsl(h, s, l) {
+    var m2;
+    if (l < 0.5) {
+      m2 = l * (s+1);
+    } else {
+      m2 = l + s - l*s;
+    }
+    var m1 = l*2 - m2;
+    return {
+      r: componentFromHue(m1, m2, h - 1/3),
+      g: componentFromHue(m1, m2, h),
+      b: componentFromHue(m1, m2, h + 1/3)
+    };
+  }
+  
   function rgbFromString(s) {
     var m;
     function parse(s, range) {
@@ -172,6 +206,9 @@ CGD.STRING = CGD.STRING || {};
         b: c(parts[2], 255),
         a: c(parts[3], 1.0)
       };
+    } else if ((m = s.match(/hsl\((.*)\)/))) {
+      var parts = m[1].split(',');
+      return rgbFromHsl(c(parts[0], 360), c(parts[1], 1), c(parts[2], 1));
     } else {
       throw new TypeError(s + ' is not a color');
     }
