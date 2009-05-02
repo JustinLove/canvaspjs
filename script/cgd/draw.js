@@ -137,12 +137,7 @@ CGD.STRING = CGD.STRING || {};
   }
 
   function componentFromHue(m1, m2, h) {
-    if (h < 0) {
-      h = h + 1;
-    }
-    if (h > 1) {
-      h = h - 1;
-    }
+    h = ((h % 1) + 1) % 1;
     if (h*6 < 1) {
       return m1 + (m2-m1) * h*6;
     }
