@@ -243,8 +243,7 @@
       objectData(this).ps.array(arguments).operator('concat');
     },
     setTransform: function(m11, m12, m21, m22, dx, dy){
-      objectData(this).ps.missing('setTransform');
-      
+      objectData(this).ps.array(arguments).operator('setmatrix');
     },
     
     //composting
