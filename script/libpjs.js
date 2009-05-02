@@ -68,6 +68,13 @@
   };
   
   mixSafe(PJS.Postscript.prototype, {
+    helpers: {
+      butt: 0,
+      round: 1,
+      square: 2
+    },
+    used: {},
+    
     body: "",
     line: "",
     missing: function(x) {
@@ -107,6 +114,10 @@
     },
     lineWidth: function(w){
       return this.number(w).operator('setlinewidth');
+    },
+    lineCap: function(cap){
+      this.used[cap] = this.helpers[cap];
+      return this.push(cap).operator('setlinecap');
     },
     comment: function(x){
       return this.operator("% " + x);
@@ -170,12 +181,14 @@
       return this.data(data);
     },
     text: function(width, height){
-      this.body += this.line;
-      this.line = "";
+      var body = this.body + this.line;
+      this.body = this.line = "";
+      this.dictionary(this.used).operator('begin');
+      var helpers = this.body;
       return "%!PS-Adobe-3.0 EPSF-3.0\n" + 
         "%%BoundingBox: 0 0 " + 
         width + " " + height + "\n" +
-        this.body;
+        helpers + body;
     }
   });
   
@@ -339,7 +352,9 @@
         operator('gsave').operator('fill').operator('grestore');
     },
     stroke: function(){
-      objectData(this).ps.lineWidth(this.lineWidth).
+      objectData(this).ps.
+        lineWidth(this.lineWidth).
+        lineCap(this.lineCap).
         color(this.strokeStyle, this.canvas.style.color).
         operator('gsave').operator('stroke').operator('grestore');
     },
