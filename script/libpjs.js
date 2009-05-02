@@ -251,8 +251,8 @@
     //globalCompositeOperation: "source-over",
     
     //colors and styles
-    strokeStyle: 'black',
-    fillStyle: 'black',
+    strokeStyle: '#000000',
+    fillStyle: '#000000',
     createLinearGradient: function(x0, y0, x1, y1){
       objectData(this).ps.missing('createLinearGradient');
       //CanvasGradient
