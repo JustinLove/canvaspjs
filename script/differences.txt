@@ -7,7 +7,11 @@ Things that cannot be implemented by postscript:
 - clearRect can't be implemented in a general way.  As a special case, it might be possible to detect full-screen clears and just scrap everything.  However, this gets complicated when transforms are involved.
 - Executing lineTo without a path does nothing in canvas; Ghostscript for one will halt with an error.  In principle a work around would be to track the path state myself, but since drawing without a path is silly, I'm not going to support it.
 - canvas arcTo specifies infinite lines under certain collinear circumstances.  Postscript arct doesn't.
+
+Appear to be Ghostscript bugs:
+
 - using a fat stroke on arc less than full circle will extend slightly around a connecting point.
+- arc: lineWidth greater than radius creates a sun ray effect on the opposite side.
 
 Potentially messy topics that haven't been implemented yet:
 
