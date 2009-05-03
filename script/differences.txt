@@ -8,6 +8,7 @@ Things that cannot be implemented by postscript:
 - Executing lineTo without a path does nothing in canvas; Ghostscript for one will halt with an error.  In principle a work around would be to track the path state myself, but since drawing without a path is silly, I'm not going to support it.
 - canvas arcTo specifies infinite lines under certain collinear circumstances.  Postscript arct doesn't.
 - canvas specifies that zero-length lineTo segments are removed before stroking.  Postscript quite happily draws endcaps, etc.
+- isPointInPath could be evaluated by the PS interpreter, but we're just recording commands for later, so this is impossible (barring complete software emulation of paths)
 
 Appear to be Ghostscript bugs:
 

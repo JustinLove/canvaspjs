@@ -450,11 +450,8 @@
     clip: function(){
       objectData(this).ps.operator('clip');
     },
-    isPointInPath: function(x, y){
-      objectData(this).ps.missing('isPointInPath');
-      return false;
-    },
-    
+    //isPointInPath: function(x, y)
+
     //text
     font: "10px sans-serif",
     textAlign: "start",
