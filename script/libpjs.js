@@ -417,6 +417,11 @@
         operator('closepath');
     },
     arc: function(x, y, radius, startAngle, endAngle, anticlockwise){
+      if (isFinite(radius) && radius < 0) {
+        var e = new RangeError("arc: radius cannnot be negative");
+        e.code = DOMException.INDEX_SIZE_ERR;
+        throw e;
+      }
       objectData(this).ps.number(x).number(y).
         number(radius).radians(startAngle).radians(endAngle).
         operator(anticlockwise ? 'arcn' : 'arc');
