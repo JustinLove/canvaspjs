@@ -130,6 +130,18 @@
       this.line = "";
       return this;
     },
+    tryIt: function(){
+      this.line += "{";
+      return this;
+    },
+    operatorCatch: function(x){
+      if (x in this.helpers) {
+        this.used[x] = this.helpers[x];
+      }
+      this.body += this.line + x + "} stopped pop\n";
+      this.line = "";
+      return this;
+    },
     color: function(s, current){
       if (s == 'currentColor' && current) {
         s = current;
@@ -385,11 +397,11 @@
         x2 += 0.00001;
         y2 += 0.00001;
       }
-      objectData(this).ps.
+      objectData(this).ps.tryIt().
         number(x1).number(y1).
         number(x2).number(y2).
         number(radius).
-        operator('arct');
+        operatorCatch('arct');
     },
     rect: function(x, y, w, h){
       objectData(this).ps.
