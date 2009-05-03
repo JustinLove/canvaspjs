@@ -93,6 +93,17 @@
   q2y\
   curveto\
   end\
+}",
+    rect: "{\
+	2 dict begin\
+	/h exch def\
+	/w exch def\
+	moveto\
+	w 0 rlineto\
+	0 h rlineto\
+	w neg 0 rlineto\
+	closepath\
+	end\
 }"
     },
     used: {},
@@ -410,11 +421,8 @@
     },
     rect: function(x, y, w, h){
       objectData(this).ps.
-        number(x).number(y).operator('moveto').
-        number(w).number(0).operator('rlineto').
-        number(0).number(h).operator('rlineto').
-        number(-w).number(0).operator('rlineto').
-        operator('closepath');
+        number(x).number(y).number(w).number(h).
+        operator('rect');
     },
     arc: function(x, y, radius, startAngle, endAngle, anticlockwise){
       if (isFinite(radius) && radius < 0) {
