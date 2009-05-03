@@ -380,6 +380,11 @@
         operator('curveto');
     },
     arcTo: function(x1, y1, x2, y2, radius){
+      // postscript will raise an error if poins coincide
+      if (x1 == x2 && y1 == y2) {
+        x2 += 0.00001;
+        y2 += 0.00001;
+      }
       objectData(this).ps.
         number(x1).number(y1).
         number(x2).number(y2).
