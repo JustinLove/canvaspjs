@@ -257,10 +257,10 @@
     'lineCap',
     'lineJoin',
     'miterLimit',
-    'shadowOffsetX',
-    'shadowOffsetY',
-    'shadowBlur',
-    'shadowColor'
+    //'shadowOffsetX',
+    //'shadowOffsetY',
+    //'shadowBlur',
+    //'shadowColor'
     //'globalCompositeOperation'
   ];
   
@@ -345,11 +345,11 @@
     lineJoin: 'miter',
     miterLimit: 10,
     
-    //shadows
-    shadowOffsetX: 0,
-    shadowOffsetY: 0,
-    shadowBlur: 0,
-    shadowColor: 'black',
+    //Unimplemented: shadows
+    //shadowOffsetX: 0,
+    //shadowOffsetY: 0,
+    //shadowBlur: 0,
+    //shadowColor: 'black',
     
     //rects
     clearRect: function(x, y, w, h){

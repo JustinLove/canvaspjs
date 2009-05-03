@@ -4,6 +4,7 @@ Things that cannot be implemented by postscript:
 - Canvas save/restore is specified to leave the current path unaffected, however in postscript gsave/grestore do preserve the path.
 - Alpha is unsupported in postscript, which really stinks.
 - globalCompositeOperator is a pixel operation, and is unsupported.
+- Shadows would require both alpha and pixel operations.  Beyond that, they are an Apple extension designed for their own use, which unfortunately made it into the spec.
 - clearRect can't be implemented in a general way.  As a special case, it might be possible to detect full-screen clears and just scrap everything.  However, this gets complicated when transforms are involved.
 - Executing lineTo without a path does nothing in canvas; Ghostscript for one will halt with an error.  In principle a work around would be to track the path state myself, but since drawing without a path is silly, I'm not going to support it.
 - canvas arcTo specifies infinite lines under certain collinear circumstances.  Postscript arct doesn't.
@@ -23,3 +24,4 @@ Potentially messy topics that haven't been implemented yet:
 Features that might possible be supported using browser-specific features:
 
 - Properties like strokeStyle and globalAlpha are just plain old JS properties, so they stay what you set them to; canvas is supposed to ignore out-of-range alpha values, for instance.
+- drawImage depends on browser canvas support to get at the pixel data.  So it's a no-go in IE, and Firefox 3.0 doesn't support animated images.
