@@ -526,7 +526,7 @@
         return;
       }
       sx = sx || 0;
-      sy = sx || 0;
+      sy = sy || 0;
       sw = sw || canvas.width;
       sh = sh || canvas.height;
       var data;
