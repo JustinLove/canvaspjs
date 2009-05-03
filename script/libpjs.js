@@ -380,8 +380,11 @@
         operator('curveto');
     },
     arcTo: function(x1, y1, x2, y2, radius){
-      objectData(this).ps.missing('arcTo');
-      
+      objectData(this).ps.
+        number(x1).number(y1).
+        number(x2).number(y2).
+        number(radius).
+        operator('arct');
     },
     rect: function(x, y, w, h){
       objectData(this).ps.
