@@ -1,8 +1,11 @@
 // Creative Commons Attribution-Share Alike 3.0 Unported Licence
 // http://creativecommons.org/licenses/by-sa/3.0/
 
-CGD.JS.require('script/testcases.js');
-//CGD.JS.require('script/cgd/html.js');
+CGD.JS.require.within('script/testpjs.js', function() {
+  var r = CGD.JS.require;
+  CGD.JS.require('testcases.js');
+  //CGD.JS.require('cgd/html.js');
+});
 
 CGD.TEST = CGD.TEST || {};
 CGD.TEST.pjs = function () {
