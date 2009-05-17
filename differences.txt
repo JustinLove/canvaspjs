@@ -1,4 +1,4 @@
-Things that cannot be implemented by postscript:
+## Things that cannot be implemented by postscript:
 
 - The image API (getImageData and friends) makes no sense, and is unsupported.
 - Canvas save/restore is specified to leave the current path unaffected, however in postscript gsave/grestore do preserve the path.
@@ -11,17 +11,17 @@ Things that cannot be implemented by postscript:
 - canvas specifies that zero-length lineTo segments are removed before stroking.  Postscript quite happily draws endcaps, etc.
 - isPointInPath could be evaluated by the PS interpreter, but we're just recording commands for later, so this is impossible (barring complete software emulation of paths)
 
-Appear to be Ghostscript bugs:
+## Appear to be Ghostscript bugs:
 
 - using a fat stroke on arc less than full circle will extend slightly around a connecting point.
 - arc: lineWidth greater than radius creates a sun ray effect on the opposite side.
 
-Potentially messy topics that haven't been implemented yet:
+## Potentially messy topics that haven't been implemented yet:
 
 - fillStyle = 'transparent' (and equivalently, alpha 0.0) are not implemented, though in principal they could be, by state tracking.
 - gradients and patterns are are not yet implemented; in principle postscript supports them, but I've put off a potentially messy topic.
 
-Features that might possible be supported using browser-specific features:
+## Features that might possible be supported using browser-specific features:
 
 - Properties like strokeStyle and globalAlpha are just plain old JS properties, so they stay what you set them to; canvas is supposed to ignore out-of-range alpha values, for instance.
 - drawImage depends on browser canvas support to get at the pixel data.  So it's a no-go in IE, and Firefox 3.0 doesn't support animated images.
