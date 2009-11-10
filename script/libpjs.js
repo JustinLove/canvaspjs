@@ -257,7 +257,7 @@
     'lineWidth',
     'lineCap',
     'lineJoin',
-    'miterLimit',
+    'miterLimit'
     //'shadowOffsetX',
     //'shadowOffsetY',
     //'shadowBlur',
