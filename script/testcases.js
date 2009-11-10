@@ -1,10 +1,12 @@
 // Creative Commons Attribution-Share Alike 3.0 Unported Licence
 // http://creativecommons.org/licenses/by-sa/3.0/
 
+CGD.RADIANS = Math.PI * 2;
+
 CGD.TEST.pjs.circle = function(context, f) {
   context.save();
   context.beginPath();
-  context.arc(0, 0, 0.4, 0, CGD.JS.RADIANS, CGD.ARC.CLOCKWISE);
+  context.arc(0, 0, 0.4, 0, CGD.RADIANS, CGD.ARC.CLOCKWISE);
   context.closePath();
   f(context);
   context.restore();
@@ -22,10 +24,10 @@ CGD.TEST.pjs.fill = function(context) {
 CGD.TEST.pjs.cases = {
   composite: function(context) {
     context.save();
-    context.rotate(CGD.JS.RADIANS*0.06);
+    context.rotate(CGD.RADIANS*0.06);
     context.beginPath();
     context.moveTo(0, 0);
-    context.arc(0, 0, 0.4, 0, CGD.JS.RADIANS*0.75, CGD.ARC.CLOCKWISE);
+    context.arc(0, 0, 0.4, 0, CGD.RADIANS*0.75, CGD.ARC.CLOCKWISE);
     context.closePath();
     context.fillStyle = 'blue';
     context.fill();
@@ -64,10 +66,10 @@ CGD.TEST.pjs.cases = {
   },
   rotate: function(context) {
     context.save();
-    context.rotate(CGD.JS.RADIANS*0.06);
+    context.rotate(CGD.RADIANS*0.06);
     context.beginPath();
     context.moveTo(0, 0);
-    context.arc(0, 0, 0.4, 0, CGD.JS.RADIANS*0.75, CGD.ARC.CLOCKWISE);
+    context.arc(0, 0, 0.4, 0, CGD.RADIANS*0.75, CGD.ARC.CLOCKWISE);
     context.closePath();
     context.lineWidth = 0.1;
     context.stroke();

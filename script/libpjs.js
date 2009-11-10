@@ -5,6 +5,7 @@
   CGD.PJS = CGD.PJS || {};
   eval(CGD.JS.explode('CGD'));
   eval(CGD.JS.explode('CGD.JS'));
+  var RADIANS = Math.PI * 2;
 
   function D(str) {
     DEBUG.p(str);
@@ -125,7 +126,7 @@
       return this.push(x);
     },
     radians: function(x){
-      return this.number(x * 360 / CGD.JS.RADIANS);
+      return this.number(x * 360 / RADIANS);
     },
     degrees: function(x){
       return this.number(x);

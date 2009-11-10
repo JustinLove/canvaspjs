@@ -66,7 +66,7 @@ CGD.RGB = CGD.RGB || {};
 CGD.STRING = CGD.STRING || {};
 (function() {
   // color names are convient, but now we have to deal with them.
-  C = CGD.RGB.STRINGS = {
+  var C = CGD.RGB.STRINGS = {
     // W3C
     aqua: '#00FFFF',
     black: '#000000',
@@ -269,4 +269,4 @@ CGD.STRING = CGD.STRING || {};
 
 }());
 
-CGD.ARC = CGD.ARC || {CLOCKWISE: 0, COUNTERCLOCKWISE: true};
+CGD.ARC = CGD.ARC || {CLOCKWISE: 0, ANTICLOCKWISE: true};
