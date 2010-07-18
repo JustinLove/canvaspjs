@@ -2,10 +2,10 @@
 // http://creativecommons.org/licenses/by-sa/3.0/
 
 new CGD.Module('script/testpjs', function(m) {
+  //m.enqueue('../../naked/script/njs');
   m.enqueue('./pjs');
   m.enqueue('./cgd/file');
   m.enqueue('./cgd/html');
-  m.enqueue('../../naked/script/njs');
 });
 
 CGD.main.enqueue("script/testcases");
