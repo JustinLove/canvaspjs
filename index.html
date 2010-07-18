@@ -6,18 +6,25 @@ http://creativecommons.org/licenses/by-sa/3.0/
 <head>
 <title>PJs</title>
 
-<script type='text/javascript' src='script/cgd/require.js' charset='utf-8'></script>
-<script type='text/javascript' src='script/pjs.js' charset='utf-8'></script>
+<script type='text/javascript' src='script/cgd/Module.js' charset='utf-8'></script>
 
 <link href="style/test.css" title="Test" type="text/css" rel="stylesheet" />
-<script type='text/javascript' src='../naked/script/njs.js' charset='utf-8'></script>
-<script type='text/javascript' src='script/cgd/file.js' charset='utf-8'></script>
 <script type='text/javascript' src='script/testpjs.js' charset='utf-8'></script>
-<script type='text/javascript' src='script/cgd/html.js' charset='utf-8'></script>
+
+<script type='text/javascript'>
+function checkLoad() {
+  if (CGD && CGD.TEST && CGD.TEST.pjs && CGD.TEST.pjs.init) {
+    CGD.TEST.pjs.init();
+  } else {
+    setTimeout(checkLoad, 10);
+  }
+}
+</script>
 
 </head>
 
-<body onload="CGD.TEST.pjs.init();">
+
+<body onload="checkLoad()">
   <h3>PJs</h3>
   <img id="tiny" src="images/tiny.png" />
   <canvas id="target"></canvas>

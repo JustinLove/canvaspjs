@@ -1,11 +1,9 @@
-CGD.JS.require.within('script/pjs.js', function() {
-  var r = CGD.JS.require;
-
-  r.under('cgd', function() {
-    r('debug.js');
-    r('js.js');
-    r('draw.js');
+new CGD.Module('script/pjs', function(m) {
+  m.under('./cgd/', function(m) {
+    m.require('./debug');
+    m.require('./js');
+    m.require('./draw');
   });
 
-  r('libpjs.js'); 
+  m.require('./libpjs'); 
 });

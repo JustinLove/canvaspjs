@@ -1,11 +1,14 @@
 // Creative Commons Attribution-Share Alike 3.0 Unported Licence
 // http://creativecommons.org/licenses/by-sa/3.0/
 
-CGD.JS.require.within('script/testpjs.js', function() {
-  var r = CGD.JS.require;
-  CGD.JS.require('testcases.js');
-  //CGD.JS.require('cgd/html.js');
+new CGD.Module('script/testpjs', function(m) {
+  m.enqueue('./pjs');
+  m.enqueue('./cgd/file');
+  m.enqueue('./cgd/html');
+  m.enqueue('../../naked/script/njs');
 });
+
+CGD.main.enqueue("script/testcases");
 
 CGD.TEST = CGD.TEST || {};
 CGD.TEST.pjs = function () {
@@ -65,6 +68,10 @@ CGD.TEST.pjs.showCases = function() {
 };
 
 CGD.TEST.pjs.init = function() {
+  if (!CGD.TEST.pjs.cases) {
+    setTimeout(CGD.TEST.pjs.init, 10);
+    return;
+  }
   CGD.DEBUG.onload();
   CGD.DEBUG.on();
 //  CGD.DEBUG.p('test');
