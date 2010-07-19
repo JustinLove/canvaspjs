@@ -8,7 +8,7 @@ new CGD.Module('script/testpjs', function(m) {
   m.enqueue('./cgd/html');
 });
 
-CGD.main.enqueue("script/testcases");
+CGD.main.enqueue("./script/testcases");
 
 CGD.TEST = CGD.TEST || {};
 CGD.TEST.pjs = function () {
